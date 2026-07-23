@@ -1,7 +1,6 @@
 import sequelize from "../config/database.js";
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
-import { useActionState } from "react";
 
 const User = sequelize.define(
   "User",
@@ -20,6 +19,12 @@ const User = sequelize.define(
       allowNull: false,
       unique: true,
       validate: { isEmail: true },
+    },
+
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,

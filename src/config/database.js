@@ -24,9 +24,9 @@ export async function connectDB() {
     await sequelize.authenticate();
     console.log("Connection Established Successfully");
 
-    const isSynced = await sequelize.sync({ alter: true });
-    if (isSynced) {
+    if (process.env.ENV_STATUS !== "development") {
       console.log("database tables created/updated");
+      await sequelize.sync({ alter: true });
     }
   } catch (error) {
     console.log("Error connecting:", error);

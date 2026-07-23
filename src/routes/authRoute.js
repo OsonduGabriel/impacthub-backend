@@ -1,14 +1,9 @@
 import { Router } from "express";
+import { register } from "../controllers/userController.js";
+import { validateNewUser } from "../middleware/validationMiddleware.js";
 
 const authRouter = Router();
 
-authRouter.get("/register", (req, res) => {
-  try {
-    res.send("Testing auth route");
-  } catch (error) {
-    res.status(500);
-    res.json({ message: "Error", error: error.message });
-  }
-});
+authRouter.post("/register", validateNewUser, register);
 
 export default authRouter;
