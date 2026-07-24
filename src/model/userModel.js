@@ -34,6 +34,22 @@ const User = sequelize.define(
       type: DataTypes.ENUM("volunteer", "NGO admin", "platform admin"),
       allowNull: false,
     },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    resetPasswordToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    resetPasswordExpires: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    lastLogin: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
   },
   {
     hooks: {
@@ -55,4 +71,17 @@ const User = sequelize.define(
   },
 );
 
+// Instance methods using the class method ideaology
+User.prototype.comparePassword = async function (inputPassword) {
+  return bcrypt.compare(inputPassword, this.password);
+};
+
+// ensure that when data is pulled from Database, some important sensitive data is not sent back
+User.prototype.toJSON = function () {
+  const values = { ...this.get({ plain: true }) }; // to ensure all nested models are converted to plain objects too
+  delete values.password;
+  delete values.resetPasswordToken;
+  delete values.resetPasswordExpires;
+  return values;
+};
 export default User;

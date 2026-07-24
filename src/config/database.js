@@ -26,7 +26,7 @@ export async function connectDB() {
 
     if (process.env.ENV_STATUS !== "development") {
       console.log("database tables created/updated");
-      await sequelize.sync({ alter: true });
+      await sequelize.sync({ force: true });
     }
   } catch (error) {
     console.log("Error connecting:", error);

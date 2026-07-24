@@ -1,34 +1,53 @@
-export const validateNewUser = (req, res, next) => {
-  const { fullname, email, password, phone, role } = req.body;
+import { body, validationResult } from "express-validator";
+// to make sure password has at least one lowercase, uppercase, number and special character
+const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%&*])/;
 
-  if (!fullname || !email || !password || !phone || !role) {
-    return res.status(400).json({ error: "Missing required Field!" });
-  }
+export const validateNewUser = [
+  body("fullname")
+    .trim()
+    .isLength({ min: 5 })
+    .withMessage("Please provide your full name"),
+  body("email").trim().isEmail().withMessage("Please provide a valid email"),
+  body("phone")
+    .trim()
+    .isLength({ min: 11, max: 20 })
+    .withMessage("Please provide a valid phone number"),
+  body("password")
+    .isLength({ min: 8 })
+    .matches(regex)
+    .withMessage(
+      "Password must have at least one lowercase, uppercase, number and special character!",
+    ),
+  body("role")
+    .optional()
+    .isIn(["user", "admin", "volunteer"])
+    .withMessage("Invalid role specified"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Failed", errors: errors.array() });
+    }
+    next();
+  },
+];
 
-  if (
-    typeof fullname !== "string" ||
-    typeof email !== "string" ||
-    typeof password !== "string" ||
-    typeof phone !== "string" ||
-    typeof role !== "string"
-  ) {
-    return res.status(400).json({ error: "Invalid Field!" });
-  }
-
-  if (password.length < 8) {
-    return res
-      .status(400)
-      .json({ error: "Password must have at least 8 characters" });
-  }
-
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%&*])/;
-  const isValid = regex.test(password);
-  if (!isValid) {
-    return res.status(400).json({
-      error:
-        "Password must have at least one lowercase, uppercase, number and special character!",
-    });
-  }
-
-  next();
-};
+export const validateCurrentUser = [
+  body("email").trim().isEmail().withMessage("Please provide a valid email"),
+  body("password")
+    .isLength({ min: 8 })
+    .matches(regex)
+    .withMessage(
+      "Password must have at least one lowercase, uppercase, number and special character!",
+    ),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Failed", errors: errors.array() });
+    }
+    next();
+  },
+];

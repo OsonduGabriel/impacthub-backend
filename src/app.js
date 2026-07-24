@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import { connectDB } from "./config/database.js";
-import { serverErrorHandler } from "./middleware/errorMiddleware.js";
+import errorHandler, {
+  serverErrorHandler,
+} from "./middleware/errorMiddleware.js";
 import authRouter from "./routes/authRoute.js";
 import { Sequelize } from "sequelize";
 
@@ -17,11 +19,18 @@ app.use(cors());
 app.use(express.json()); // to parse json request bodies.
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+app.use("/api/auth/v1", authRouter);
 
-app.use("/auth", authRouter);
+// Error Handler
+app.use(errorHandler);
+
+// Used to handle (404) NOT FOUND error.
+app.use((req, res) => {
+  res.status(404).json({
+    error: "Error",
+    message: "Route not found",
+  });
+});
 
 // start server
 const startServer = async () => {
