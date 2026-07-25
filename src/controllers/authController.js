@@ -3,6 +3,7 @@ import { AuthService } from "../services/authService.js";
 const authService = new AuthService();
 import crypto from "crypto";
 import sendOTP from "../helpers/emailHelper.js";
+import { error } from "console";
 //
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -115,6 +116,33 @@ export const resetPassword = async (req, res, next) => {
     const newToken = generateToken(user.id);
 
     return res.status(201).json({ message: "success", token: newToken });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const changePassword = async (req, res, next) => {
+  console.log(req.body);
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const user = await authService.getUserById(req.user.id);
+    console.log(`here is user ${user.fullname}`);
+    if (!user) {
+      return res.status(400).json({ error: "Error", message: error.message });
+    }
+    const compare = await user.comparePassword(oldPassword);
+    if (!compare) {
+      return res.status(401).json({
+        error: "Password Incorrect",
+        message: "Enter Current Password",
+      });
+    }
+    console.log("I hate when thing so south");
+    user.password = newPassword;
+    await user.save();
+    return res
+      .status(201)
+      .json({ status: "success", message: "Password changed successfully" });
   } catch (error) {
     next(error);
   }
