@@ -47,3 +47,19 @@ export const validateCurrentUser = [
     next();
   },
 ];
+
+export const validatePassword = [
+  body("password")
+    .isLength({ min: 8 })
+    .matches(regex)
+    .withMessage(
+      "Password must have at least one lowercase, uppercase, number and special character!",
+    ),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: "Failed", error: errors.array() });
+    }
+    next();
+  },
+];

@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import { Op } from "sequelize";
 import User from "../model/userModel.js";
 import sequelize from "../config/database.js";
 import { VolunteerService } from "./volunteerService.js";
@@ -35,6 +36,27 @@ export class AuthService {
     }
     user.lastLogin = new Date();
     await user.save();
+    return user;
+  }
+
+  async confirmEmail({ email }) {
+    const user = await User.findOne({ where: { email } });
+    if (!user) {
+      throw new Error("No user found with that email");
+    }
+    return user;
+  }
+
+  async getUserByResetPassword(resetPasswordToken) {
+    const user = await User.findOne({
+      where: {
+        resetPasswordToken,
+        resetPasswordExpires: { [Op.gt]: Date.now() },
+      },
+    });
+    if (!user) {
+      throw new Error("Invalid or Expired Token");
+    }
     return user;
   }
 }
