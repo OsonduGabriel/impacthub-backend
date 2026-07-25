@@ -16,11 +16,14 @@ export async function serverErrorHandler(error) {
 // error handle function
 
 const errorHandler = (err, req, res, next) => {
+  if (!err.status || err.status === 500) {
+    console.error("Unhandled Error:", err);
+  }
   // sequelize unique constraint error
   if (err.name === "SequelizeUniqueConstraintError") {
     const field = err.errors[0].path;
     return res.status(409).json({
-      error: "Error",
+      error: "Conflict",
       message: `${field} already exists`,
       // this means that there is a conflict. caused by the unique nature of email and phone number
     });
@@ -48,7 +51,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // Multer errors
-  if (err.name === "LIMIT_FILE_SIZE") {
+  if (err.code === "LIMIT_FILE_SIZE") {
     return res.status(400).json({
       error: "Error",
       message: "File too large",

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import User from "../model/userModel";
+import User from "../model/userModel.js";
 
-export const protect = (req, res, next) => {
+export const protect = async (req, res, next) => {
   try {
     let token;
 
@@ -14,7 +14,7 @@ export const protect = (req, res, next) => {
     if (!token) {
       return res.status(401).json({
         message: "Error, Not authorized to access this route",
-        error: error.message
+        error: error.message,
       });
     }
 
@@ -22,34 +22,41 @@ export const protect = (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET); // decode to get user details from token.
       const user = await User.findByPk(decoded.id);
 
-      if(!user) {
-        return req.status(401).json({message: "Error, User no Longer Exists",
-        error: error.message})
+      if (!user) {
+        return res.status(401).json({
+          message: "Error, User no Longer Exists",
+          error: error.message,
+        });
       }
 
-      if(!user.isActive) {
-         return req.status(401).json({message: "Error, User account is deactivated",
-        error: error.message})
+      if (!user.isActive) {
+        return res.status(401).json({
+          message: "Error, User account is deactivated",
+          error: error.message,
+        });
       }
 
       req.user = user;
       next();
     } catch (error) {
-         return req.status(401).json({message: "Error, Token is invalid or expired",
-        error: error.message})
+      return res.status(401).json({
+        message: "Error, Token is invalid or expired",
+        error: error.message,
+      });
     }
   } catch (error) {
     next(error);
   }
 };
 
-
 export const authorize = (...roles) => {
-    return (req, res, next) => {
-        if (!roles.includes(req.user.role)) {
-            return res.status(403).json({message: `Error, role ${req.user.role} is not authorized to access this route`,
-        error: error.message});
-        }
-        next();
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: `Error, role ${req.user.role} is not authorized to access this route`,
+        error: error.message,
+      });
     }
-}
+    next();
+  };
+};

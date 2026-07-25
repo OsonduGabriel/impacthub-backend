@@ -1,8 +1,8 @@
 import sequelize from "../config/database.js";
 import { DataTypes } from "sequelize";
 
-const User = sequelize.define(
-  "User",
+const Volunteer = sequelize.define(
+  "Volunteer",
   {
     id: {
       type: DataTypes.UUID,
@@ -19,6 +19,11 @@ const User = sequelize.define(
       unique: true,
       validate: { isEmail: true },
     },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
     skills: {
       type: DataTypes.TEXT,
       allowNull: true,
@@ -34,7 +39,9 @@ const User = sequelize.define(
     },
   },
   {
-    tableName: "volunteer",
+    tableName: "volunteers",
     timestamps: true,
   },
 );
+
+export default Volunteer;

@@ -18,10 +18,6 @@ export const validateNewUser = [
     .withMessage(
       "Password must have at least one lowercase, uppercase, number and special character!",
     ),
-  body("role")
-    .optional()
-    .isIn(["user", "admin", "volunteer"])
-    .withMessage("Invalid role specified"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
