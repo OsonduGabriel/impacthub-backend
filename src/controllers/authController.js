@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { AuthService } from "../services/authService.js";
 const authService = new AuthService();
 import crypto from "crypto";
-import sendOtpEmail from "../helpers/emailHelper.js";
+import sendOTP from "../helpers/emailHelper.js";
 //
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -67,7 +67,8 @@ export const forgotPassword = async (req, res, next) => {
     await user.save();
 
     try {
-      await sendOtpEmail(user.email, restToken);
+      await sendOTP(user.email, restToken);
+      console.log("got here");
       return res.json({
         status: "success",
         message: "Rest token sent to email",
