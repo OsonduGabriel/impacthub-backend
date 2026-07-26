@@ -13,6 +13,7 @@ export const protect = async (req, res, next) => {
     }
     if (!token) {
       return res.status(401).json({
+        status: "failed",
         message: "Error, Not authorized to access this route",
         error: error.message,
       });
@@ -24,6 +25,7 @@ export const protect = async (req, res, next) => {
 
       if (!user) {
         return res.status(401).json({
+          status: "failed",
           message: "Error, User no Longer Exists",
           error: error.message,
         });
@@ -31,6 +33,7 @@ export const protect = async (req, res, next) => {
 
       if (!user.isActive) {
         return res.status(401).json({
+          status: "failed",
           message: "Error, User account is deactivated",
           error: error.message,
         });
@@ -40,6 +43,7 @@ export const protect = async (req, res, next) => {
       next();
     } catch (error) {
       return res.status(401).json({
+        status: "failed",
         message: "Error, Token is invalid or expired",
         error: error.message,
       });
@@ -53,6 +57,7 @@ export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({
+        status: "failed",
         message: `Error, role ${req.user.role} is not authorized to access this route`,
         error: error.message,
       });

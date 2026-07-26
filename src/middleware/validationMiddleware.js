@@ -3,10 +3,15 @@ import { body, validationResult } from "express-validator";
 const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$%&*])/;
 
 export const validateNewUser = [
-  body("fullname")
+  body("firstname")
     .trim()
-    .isLength({ min: 5 })
-    .withMessage("Please provide your full name"),
+    .isLength({ min: 1 })
+    .notEmpty()
+    .withMessage("Please provide your firstname"),
+  body("lastname")
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide your lastname"),
   body("email").trim().isEmail().withMessage("Please provide a valid email"),
   body("phone")
     .trim()
@@ -21,9 +26,7 @@ export const validateNewUser = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ message: "Failed", errors: errors.array() });
+      return res.status(400).json({ status: "failed", errors: errors.array() });
     }
     next();
   },
@@ -40,9 +43,7 @@ export const validateCurrentUser = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res
-        .status(400)
-        .json({ message: "Failed", errors: errors.array() });
+      return res.status(400).json({ status: "failed", errors: errors.array() });
     }
     next();
   },
@@ -58,7 +59,7 @@ export const validatePassword = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ message: "Failed", error: errors.array() });
+      return res.status(400).json({ status: "failed", error: errors.array() });
     }
     next();
   },
@@ -78,7 +79,9 @@ export const validateChangePassword = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty) {
-      return res.status(400).json({ message: "Error", error: errors.array() });
+      return res
+        .status(400)
+        .json({ status: "failed", message: "Error", error: errors.array() });
     }
     next();
   },

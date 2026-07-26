@@ -5,14 +5,15 @@ import sequelize from "../config/database.js";
 import { VolunteerService } from "./volunteerService.js";
 const volunteerService = new VolunteerService();
 export class AuthService {
-  async createUser({ fullname, email, password, phone }) {
+  async createUser({ firstname, lastname, email, password, phone }) {
     const [user, created] = await User.findOrCreate({
       where: {
-        fullname,
+        firstname,
         email,
       },
       defaults: {
-        fullname,
+        firstname,
+        lastname,
         email,
         password,
         phone,

@@ -23,7 +23,7 @@ export const register = async (req, res, next) => {
     const user = await authService.createUser(req.body);
     const token = generateToken(user.id);
     return res.status(201).json({
-      message: "success",
+      status: "success",
       data: { user: user, token: token },
     });
   } catch (error) {
@@ -38,9 +38,9 @@ export const login = async (req, res) => {
     const token = generateToken(user.id);
     return res
       .status(200)
-      .json({ message: "success", data: { user: user, token: token } });
+      .json({ status: "success", data: { user: user, token: token } });
   } catch (error) {
-    return res.status(400).json({ error: "Error", message: error.message });
+    return res.status(400).json({ status: "failed", message: error.message });
   }
 };
 
@@ -49,7 +49,7 @@ export const forgotPassword = async (req, res, next) => {
     const user = await authService.confirmEmail(req.body);
     if (!user) {
       return res.status(404).json({
-        error: "Error",
+        status: "failed",
         message: error.message,
       });
     }
@@ -69,7 +69,6 @@ export const forgotPassword = async (req, res, next) => {
 
     try {
       await sendOTP(user.email, restToken);
-      console.log("got here");
       return res.json({
         status: "success",
         message: "Rest token sent to email",
@@ -80,7 +79,7 @@ export const forgotPassword = async (req, res, next) => {
       await user.save();
 
       return res.status(500).json({
-        error: "Error",
+        status: "failed",
         message: "Error sending email. Please try again later",
       });
     }
@@ -105,7 +104,7 @@ export const resetPassword = async (req, res, next) => {
     if (!user) {
       return res
         .status(400)
-        .json({ error: "Error", message: "Invalid or Expired Token" });
+        .json({ status: "failed", message: "Invalid or Expired Token" });
     }
     // update user details
     user.password = password;
@@ -115,7 +114,7 @@ export const resetPassword = async (req, res, next) => {
 
     const newToken = generateToken(user.id);
 
-    return res.status(201).json({ message: "success", token: newToken });
+    return res.status(201).json({ status: "success", token: newToken });
   } catch (error) {
     next(error);
   }
@@ -128,16 +127,17 @@ export const changePassword = async (req, res, next) => {
     const user = await authService.getUserById(req.user.id);
     console.log(`here is user ${user.fullname}`);
     if (!user) {
-      return res.status(400).json({ error: "Error", message: error.message });
+      return res.status(400).json({ status: "failed", message: error.message });
     }
     const compare = await user.comparePassword(oldPassword);
     if (!compare) {
       return res.status(401).json({
+        status: "failed",
         error: "Password Incorrect",
         message: "Enter Current Password",
       });
     }
-    console.log("I hate when thing so south");
+
     user.password = newPassword;
     await user.save();
     return res

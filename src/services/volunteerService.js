@@ -8,11 +8,12 @@ export class VolunteerService {
     const result = await sequelize.transaction(async (t) => {
       const [volunteer, created] = await Volunteer.findOrCreate({
         where: {
-          fullname: user.fullname,
+          firstname: user.firstname,
           email: user.email,
         },
         defaults: {
-          fullname: user.fullname,
+          firstname: user.firstname,
+          lastname: user.lastname,
           email: user.email,
           phone: user.phone,
         },

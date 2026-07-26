@@ -29,7 +29,7 @@ app.use(errorHandler);
 // Used to handle (404) NOT FOUND error.
 app.use((req, res) => {
   res.status(404).json({
-    error: "Error",
+    status: "failed",
     message: "Route not found",
   });
 });

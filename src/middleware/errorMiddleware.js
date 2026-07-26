@@ -23,6 +23,7 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === "SequelizeUniqueConstraintError") {
     const field = err.errors[0].path;
     return res.status(409).json({
+      status: "failed",
       error: "Conflict",
       message: `${field} already exists`,
       // this means that there is a conflict. caused by the unique nature of email and phone number
@@ -36,7 +37,7 @@ const errorHandler = (err, req, res, next) => {
       message: e.message,
     }));
     return res.status(400).json({
-      error: "Error",
+      status: "failed",
       message: "Validation error",
       errors,
     });
@@ -44,23 +45,23 @@ const errorHandler = (err, req, res, next) => {
 
   // JWT errors
   if (err.name === "JsonWebTokenError") {
-    return res.status(401).json({ error: "Error", message: "Invalid Token" });
+    return res.status(401).json({ status: "failed", message: "Invalid Token" });
   }
   if (err.name === "TokenExpiredError") {
-    return res.status(401).json({ error: "Error", message: "Token Expired" });
+    return res.status(401).json({ status: "failed", message: "Token Expired" });
   }
 
   // Multer errors
   if (err.code === "LIMIT_FILE_SIZE") {
     return res.status(400).json({
-      error: "Error",
+      status: "failed",
       message: "File too large",
     });
   }
 
   // default error if no other error code was found
   res.status(err.status || 500).json({
-    error: "Error",
+    status: "failed",
     message: err.message || "Internal server error",
   });
 };

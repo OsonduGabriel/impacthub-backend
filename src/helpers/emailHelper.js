@@ -30,14 +30,11 @@ export const sendOTP = async (email, otpCode) => {
         </div>
       `,
   };
-  console.log(message);
+
   try {
     const email = await transporter.sendMail(message);
-    console.log(email);
     return email;
-  } catch (error) {
-    console.log(error.message);
-  }
+  } catch (error) {}
 };
 
 export default sendOTP;
