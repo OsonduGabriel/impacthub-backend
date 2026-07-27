@@ -15,7 +15,6 @@ export const protect = async (req, res, next) => {
       return res.status(401).json({
         status: "failed",
         message: "Error, Not authorized to access this route",
-        error: error.message,
       });
     }
 
@@ -27,7 +26,6 @@ export const protect = async (req, res, next) => {
         return res.status(401).json({
           status: "failed",
           message: "Error, User no Longer Exists",
-          error: error.message,
         });
       }
 
@@ -35,7 +33,6 @@ export const protect = async (req, res, next) => {
         return res.status(401).json({
           status: "failed",
           message: "Error, User account is deactivated",
-          error: error.message,
         });
       }
 
@@ -59,7 +56,6 @@ export const authorize = (...roles) => {
       return res.status(403).json({
         status: "failed",
         message: `Error, role ${req.user.role} is not authorized to access this route`,
-        error: error.message,
       });
     }
     next();

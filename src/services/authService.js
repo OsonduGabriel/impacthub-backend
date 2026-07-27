@@ -68,4 +68,10 @@ export class AuthService {
     }
     return user;
   }
+
+  async createAdmin(user) {
+    user.role = "platform-admin";
+    await user.save();
+    return user;
+  }
 }

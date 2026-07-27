@@ -8,6 +8,7 @@ import errorHandler, {
 import authRouter from "./routes/authRoute.js";
 import { Sequelize } from "sequelize";
 import volunteerRouter from "./routes/volunteerRoute.js";
+import userRouter from "./routes/userRoute.js";
 
 // Load environment variables. this enables us to use the .env file
 dotenv.config();
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/auth/v1", authRouter);
 app.use("/api/auth/v1", volunteerRouter);
+app.use("/api/auth/v1", userRouter);
 
 // Error Handler
 app.use(errorHandler);

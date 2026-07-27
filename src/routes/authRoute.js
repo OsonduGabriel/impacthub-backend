@@ -5,6 +5,7 @@ import {
   forgotPassword,
   resetPassword,
   changePassword,
+  registerAdmin,
 } from "../controllers/authController.js";
 import {
   validateNewUser,
@@ -12,7 +13,7 @@ import {
   validatePassword,
   validateChangePassword,
 } from "../middleware/validationMiddleware.js";
-import { protect } from "../middleware/authMiddleware.js";
+import { protect, authorize } from "../middleware/authMiddleware.js";
 
 const authRouter = Router();
 
@@ -26,4 +27,6 @@ authRouter.post(
   validateChangePassword,
   changePassword,
 );
+
+authRouter.post("/admin/register", protect, authorize("user"), registerAdmin);
 export default authRouter;

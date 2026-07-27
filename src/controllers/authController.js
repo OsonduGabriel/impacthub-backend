@@ -147,3 +147,15 @@ export const changePassword = async (req, res, next) => {
     next(error);
   }
 };
+
+export const registerAdmin = async (req, res, next) => {
+  try {
+    const user = await authService.createAdmin(req.user);
+    return res.status(201).json({
+      status: "success",
+      message: "Platform Admin created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
