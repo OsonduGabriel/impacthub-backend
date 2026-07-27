@@ -45,7 +45,7 @@ const Certificate = sequelize.define(
     },
 
     status: {
-      type: DataTypes.ENUM("GENERATED", "DOWNLOADED"),
+      type: DataTypes.ENUM("GENERATED", "DOWNLOADED", "ARCHIVED"),
       defaultValue: "GENERATED",
     },
 
