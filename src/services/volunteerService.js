@@ -4,7 +4,6 @@ import fs from "fs/promises";
 import path from "path";
 import Volunteer from "../model/volunteerModel.js";
 import sequelize from "../config/database.js";
-import User from "../model/userModel.js";
 
 export class VolunteerService {
   async createProfile(user) {
@@ -77,12 +76,6 @@ export class VolunteerService {
   }
 
   async uploadFiles(volunteer, updates, files) {
-    console.log(
-      `this is volunteer: ${volunteer.avatarUrl}, ${volunteer.cvUrl}`,
-    );
-    // function to remove old files
-
-    //
     const removeOldFiles = async (filePath) => {
       console.log("In the Remove file Function");
       console.log(`File Path ${filePath}`);
@@ -123,5 +116,34 @@ export class VolunteerService {
       updates.cvUrl = getRelativePath(newDocumentUrl);
     }
     return updates;
+  }
+
+  async getProfile(userId) {
+    const volunteer = await Volunteer.findOne({ where: { userId } });
+    if (!volunteer) {
+      throw new Error("Volunteer does not exist");
+    }
+
+    return volunteer;
+  }
+
+  async getAllVolunteers() {
+    const volunteers = await Volunteer.findAll();
+    if (!volunteers) {
+      throw new Error("No volunter found");
+    }
+
+    return volunteers;
+  }
+
+  async deleteVolunteer(userId) {
+    const deletedVolunteer = await Volunteer.destroy({
+      where: { userId },
+    });
+    const isDeleted = deletedVolunteer > 0;
+    if (isDeleted === false) {
+      throw new Error("Unable to delete volunteer");
+    }
+    return isDeleted;
   }
 }
