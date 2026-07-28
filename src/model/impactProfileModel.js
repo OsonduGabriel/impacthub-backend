@@ -35,7 +35,7 @@ const ImpactProfile = sequelize.define(
         }
     },
     {
-        tableName: ImpactProfile,
+        tableName: "ImpactProfile",
         timestamps: true
     }
 )
