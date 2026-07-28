@@ -1,6 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
+import uploadProfileFiles from "./config/multer.js";
 import { connectDB } from "./config/database.js";
 import errorHandler, {
   serverErrorHandler,
@@ -20,6 +22,10 @@ const app = express();
 app.use(cors());
 app.use(express.json()); // to parse json request bodies.
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  "/uploads",
+  express.static(path.join(import.meta.dirname, "../uploads")),
+);
 
 app.use("/api/auth/v1", authRouter);
 app.use("/api/auth/v1", volunteerRouter);

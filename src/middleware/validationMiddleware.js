@@ -5,16 +5,14 @@ const allowedRoles = ["volunteer", "NGO-admin", "platform-admin"];
 export const validateNewUser = [
   body("firstname")
     .trim()
+    .isAlpha()
     .isLength({ min: 1 })
-    .notEmpty()
     .withMessage("Please provide your firstname"),
-  body("lastname")
-    .trim()
-    .notEmpty()
-    .withMessage("Please provide your lastname"),
+  body("lastname").trim().isAlpha().withMessage("Please provide your lastname"),
   body("email").trim().isEmail().withMessage("Please provide a valid email"),
   body("phone")
     .trim()
+    .isMobilePhone()
     .isLength({ min: 11, max: 20 })
     .withMessage("Please provide a valid phone number"),
   body("password")
@@ -30,7 +28,7 @@ export const validateNewUser = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ status: "failed", errors: errors.array() });
+      return res.status(400).json({ status: "failed", error: errors.array() });
     }
     next();
   },
@@ -47,7 +45,7 @@ export const validateCurrentUser = [
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ status: "failed", errors: errors.array() });
+      return res.status(400).json({ status: "failed", error: errors.array() });
     }
     next();
   },
@@ -82,7 +80,7 @@ export const validateChangePassword = [
     ),
   (req, res, next) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty) {
+    if (!errors.isEmpty()) {
       return res
         .status(400)
         .json({ status: "failed", message: "Error", error: errors.array() });
@@ -101,12 +99,13 @@ export const validateUpdateUser = [
   body("firstname")
     .optional()
     .trim()
+    .isAlpha()
     .isLength({ min: 1 })
-    .notEmpty()
     .withMessage("Please provide your firstname"),
   body("lastname")
     .optional()
     .trim()
+    .isAlpha()
     .notEmpty()
     .withMessage("Please provide your lastname"),
   body("email")
@@ -117,8 +116,91 @@ export const validateUpdateUser = [
   body("phone")
     .optional()
     .trim()
+    .isMobilePhone()
     .isLength({ min: 11, max: 20 })
     .withMessage("Please provide a valid phone number"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: "failed", error: errors.array() });
+    }
+    next();
+  },
+];
+
+export const validateUpdateVolunteer = [
+  body("userId").custom((value) => {
+    if (value !== undefined) {
+      throw new Error("Users are not allowed to change ID");
+    }
+    return true;
+  }),
+  body("profTitle")
+    .optional({ values: "falsy" })
+    .trim()
+    .isString()
+    .isLength({ min: 5 })
+    .withMessage("Please provide your Professional Title"),
+  body("firstname")
+    .optional({ values: "falsy" })
+    .trim()
+    .isAlpha()
+    .isLength({ min: 1 })
+    .withMessage("Please provide your firstname"),
+  body("lastname")
+    .optional({ values: "falsy" })
+    .trim()
+    .isAlpha()
+    .isLength({ min: 1 })
+    .withMessage("Please provide your lastname"),
+  body("email")
+    .optional({ values: "falsy" })
+    .trim()
+    .isEmail()
+    .withMessage("Please provide a valid email"),
+  body("phone")
+    .optional({ values: "falsy" })
+    .trim()
+    .isMobilePhone()
+    .withMessage("Please provide a valid phone number"),
+  body("state")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .isAlpha()
+    .withMessage("Please provide a valid State"),
+  body("country")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .isAlpha()
+    .withMessage("Please provide a valid Country"),
+  body("about")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a details about you"),
+  body("experience")
+    .optional({ values: "falsy" })
+    .trim()
+    .notEmpty()
+    .withMessage("Please provide a valid experience"),
+  body("websiteUrl")
+    .optional({ values: "falsy" })
+    .trim()
+    .isURL()
+    .withMessage("Please provide a valid url"),
+  body("skills")
+    .optional()
+    .trim()
+    .isArray()
+    .isLength({ min: 11, max: 20 })
+    .withMessage("Please provide a valid phone number"),
+  body("avatarUrl")
+    .optional()
+    .isURL()
+    .withMessage("Please provide a valid avatar"),
+  body("cvUrl").optional().isURL().withMessage("Please provide a valid CV"),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

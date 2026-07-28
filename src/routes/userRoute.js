@@ -23,7 +23,7 @@ userRouter.post(
   createNewUser,
 );
 
-userRouter.post(
+userRouter.put(
   "/update-user/:id",
   protect,
   authorize("platform-admin"),

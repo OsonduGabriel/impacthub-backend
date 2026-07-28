@@ -9,6 +9,19 @@ const Volunteer = sequelize.define(
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
+
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+    },
+    profTitle: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     firstname: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,24 +41,40 @@ const Volunteer = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     skills: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: [],
+    },
+    about: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-
-    interests: {
+    experience: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    profilePhotoUrl: {
+    avatarUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    websiteUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    cvUrl: {
       type: DataTypes.STRING,
       allowNull: true,
     },
   },
-  {
-    tableName: "volunteers",
-    timestamps: true,
-  },
+  { underscored: true, tableName: "volunteers", timestamps: true },
 );
 
 export default Volunteer;

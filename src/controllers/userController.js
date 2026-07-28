@@ -14,7 +14,6 @@ export const createNewUser = async (req, res, next) => {
 export const updateUser = async (req, res, next) => {
   const id = req.params.id;
   const updates = req.body;
-  console.log(id);
   try {
     const user = await userService.editUser(id, updates);
     res.status(201).json({ status: "success", user: user });
