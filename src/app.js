@@ -10,6 +10,9 @@ const app = express()
 //middleware so we can parse json request
 app.use(express.json())
 
+//middleware to store pdfs and qr codes in public
+app.use(express.static("src/public"));
+
 //test route
 app.get("/", (req, res) => {
   res.status(200).json({success: true, message: "Welcome to ImpactHub API"})

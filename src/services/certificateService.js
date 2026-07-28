@@ -20,14 +20,23 @@ export const generateCertificate = async(data) => {
   // Validate contribution has been verified
 
     const certificateId = generateCertificateId()
+    const volunteer = await Volunteer.findByPk(volunteerId)
+    const volunteerName = volunteer.fullName
+
+    const ngo = await Ngo.findByPk(ngoId)
+    const ngoName = ngo.organizationName
+
+    const opportunity = await Opportunity.findByPk(opportunityId)
+    const opportunityTitle = opportunity.opportunityName
+    
     const qrCode = await generateQRCode(certificateId)
     const pdfUrl = await generatePDF({ certificateId, volunteerId, ngoId, opportunityId, verifiedHours, qrCode})
 
     const certificate = await Certificate.create({
         certificateId,
-        volunteerId,
-        ngoId,
-        opportunityId,
+        volunteerName,
+        ngoName,
+        opportunityTitle,
         verifiedHours,
         qrCode,
         pdfUrl,

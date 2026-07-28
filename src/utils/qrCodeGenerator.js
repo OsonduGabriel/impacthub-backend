@@ -1,14 +1,22 @@
 import QRCode from "qrcode"
+import fs from "fs"
+import path from "path"
 
 export const generateQRCode = async(certificateId) => {
     try {
-    //TODO: Replace this with deployed frontend URL from frontend track 
-    const verificationUrl = `http://localhost:3000/api/v1/certificates/verify/${certificateId}`;
+        const qrFolder = path.join("src", "public", "qr")
 
-    // Generate QR code as a Base64 Data URL
-    const qrCode = await QRCode.toDataURL(verificationUrl);
+        if(fs.existsSync(qrFolder)){
+            //TODO: Replace this with deployed frontend URL from frontend track
+            const verificationUrl = `http://localhost:3000/api/v1/certificates/verify/${certificateId}`;
 
-    return qrCode;
+            const qrPath = path.join(qrFolder, `${certificateId}.png`)
+            await QRCode.toFile(qrPath, verificationUrl)
+
+            return qrPath;
+        }
+
+        fs.mkdirSync(qrFolder, { recursive: true} )
 
     } catch (error) {
         throw new Error("Failed to generate QR code")

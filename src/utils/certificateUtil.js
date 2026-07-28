@@ -1,6 +1,6 @@
 import {customAlphabet} from "nanoid"
 
-//creating  ID generator - uses only uppercase letters and numbers
+//creating  ID generator - uses only uppercase letters and numbers - 8 characters
 const nanoid = customAlphabet(
     "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
     8
