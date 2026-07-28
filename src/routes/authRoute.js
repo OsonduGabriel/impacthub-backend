@@ -6,6 +6,7 @@ import {
   resetPassword,
   changePassword,
   registerAdmin,
+  registerNgoAdmin,
 } from "../controllers/authController.js";
 import {
   validateNewUser,
@@ -28,5 +29,12 @@ authRouter.post(
   changePassword,
 );
 
-authRouter.post("/admin/register", protect, authorize("user"), registerAdmin);
+authRouter.put("/admin/register", protect, authorize("user"), registerAdmin);
+
+authRouter.put(
+  "/Ngo-admin/register",
+  protect,
+  authorize("user"),
+  registerNgoAdmin,
+);
 export default authRouter;

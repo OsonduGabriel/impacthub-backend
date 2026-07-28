@@ -159,3 +159,15 @@ export const registerAdmin = async (req, res, next) => {
     next(error);
   }
 };
+
+export const registerNgoAdmin = async (req, res, next) => {
+  try {
+    const user = await authService.createNgoAdmin(req.user);
+    return res.status(201).json({
+      status: "success",
+      message: "NGO Admin created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};

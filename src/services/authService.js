@@ -74,4 +74,10 @@ export class AuthService {
     await user.save();
     return user;
   }
+
+  async createNgoAdmin(user) {
+    user.role = "NGO-admin";
+    await user.save();
+    return user;
+  }
 }
