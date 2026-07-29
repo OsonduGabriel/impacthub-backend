@@ -7,6 +7,7 @@ import Contribution from "../model/contributionModel";
 import { generateCertificateId } from "../utils/certificateUtil.js"
 import { generateQRCode } from "../utils/qrCodeGenerator.js"
 import { generatePDF } from "../utils/pdfGenerator.js"
+import { createNotification } from "./notificationService.js";
 import { where } from "sequelize";
 
 //*create certifcicate
@@ -47,6 +48,13 @@ export const generateCertificate = async(data) => {
   // Update Impact Profile
   // Create Notification
 
+  await createNotification({
+    userId: volunteerId,
+    title: "Certificate Available",
+    type: "CERTIFICATE_AVAILABLE",
+    message: "Congratulations! Your certificate has been generated and is now available for download"
+  })
+  
   return certificate;
 }
 

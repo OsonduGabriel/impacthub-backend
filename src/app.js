@@ -1,7 +1,7 @@
 import express from "express"
 import sequelize from "./config/database.js";
 import dotenv from "dotenv"
-import impactProfileRoutes from "./routes/impactProfileRoute.js"
+import routes from "./routes/index.js"
 
 //import environment variables
 dotenv.config()
@@ -14,8 +14,9 @@ app.use(express.json())
 //middleware to store pdfs and qr codes in public
 app.use(express.static("src/public"));
 
-// impact profile routes
-app.use("/api/v1/impact-profile", impactProfileRoutes)
+//registering all routes
+app.use("/api/v1", routes)
+
 
 //test route
 app.get("/", (req, res) => {

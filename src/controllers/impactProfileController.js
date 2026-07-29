@@ -1,7 +1,7 @@
 import * as impactProfileService from "../services/impactProfileService"
 
 //get impact profile - Route: GET/api/v1/impact-profile
-export const getProfile = async(req, res) => {
+export const getProfile = async(req, res, next) => {
     try {
         //from JWT middleware
         const volunteerId = req.user?.id || req.params.volunteerId
@@ -14,12 +14,12 @@ export const getProfile = async(req, res) => {
 
         res.status(404).json({success: false, message: "Impact profile not found"})
     } catch (error) {
-        res.status(500).json({success:false, message: "Internal server error"})
+        next(error)
     }
 }
 
 //turn profile sharing on/off - patch api/v1/impact-profile/share
-export const toggleSharing = async(req, res) => {
+export const toggleSharing = async(req, res, next) => {
     try {
         const volunteerId = req.user?.id || req.params.volunteerId
 
@@ -27,12 +27,12 @@ export const toggleSharing = async(req, res) => {
 
         res.status(200).json({success: true, data: profile, message: "Profile sharing updated"})
     } catch (error) {
-        res.status(500).json({success:false, message: "Internal server error"})
+        next(error)
     }
 }
 
 //create a new shareableLink - patch api/v1/impact-profile/regenerate-link
-export const regenerateLink = async(req, res) => {
+export const regenerateLink = async(req, res, next) => {
     try {
         const volunteerId = req.user?.id || req.params.volunteerId
 
@@ -40,12 +40,12 @@ export const regenerateLink = async(req, res) => {
 
         res.status(200).json({success: true, data: profile, message: "Shareable Link regenerated"})
     } catch (error) {
-        res.status(500).json({success:false, message: "Internal server error"})
+        next(error)
     }
 }
 
 //get public profile from shareableLink - GET api/v1/impact-profile/share/:shareableLink
-export const getSharedProfile = async(req, res) => {
+export const getSharedProfile = async(req, res, next) => {
     try {
         const {shareableLink} = req.params
         const profile = await impactProfileService.getPublicProfile(shareableLink)
@@ -56,6 +56,8 @@ export const getSharedProfile = async(req, res) => {
 
         res.status(404).json({success: false, message: "Public profile not found"})
     } catch (error) {
-        res.status(500).json({success:false, message: "Internal server error"})
+        next(error)
     }
 }
+
+//*Note: update impact profile was not added because it is updated automatically after contributions are verified
