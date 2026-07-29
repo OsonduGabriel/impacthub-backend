@@ -54,7 +54,7 @@ export const generateCertificate = async(data) => {
     type: "CERTIFICATE_AVAILABLE",
     message: "Congratulations! Your certificate has been generated and is now available for download"
   })
-  
+
   return certificate;
 }
 
