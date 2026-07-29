@@ -7,6 +7,7 @@ import {
   changePassword,
   registerAdmin,
   registerNgoAdmin,
+  logout,
 } from "../controllers/authController.js";
 import {
   validateNewUser,
@@ -14,7 +15,11 @@ import {
   validatePassword,
   validateChangePassword,
 } from "../middleware/validationMiddleware.js";
-import { protect, authorize } from "../middleware/authMiddleware.js";
+import {
+  protect,
+  authorize,
+  closeProtect,
+} from "../middleware/authMiddleware.js";
 
 const authRouter = Router();
 
@@ -29,12 +34,19 @@ authRouter.post(
   changePassword,
 );
 
-authRouter.put("/admin/register", protect, authorize("user"), registerAdmin);
+authRouter.put(
+  "/admin/register",
+  closeProtect,
+  authorize("user"),
+  registerAdmin,
+);
 
 authRouter.put(
   "/Ngo-admin/register",
-  protect,
+  closeProtect,
   authorize("user"),
   registerNgoAdmin,
 );
+
+authRouter.post("/logout", protect, logout);
 export default authRouter;

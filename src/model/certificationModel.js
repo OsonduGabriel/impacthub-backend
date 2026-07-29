@@ -1,4 +1,4 @@
-import sequelize from "../config/database";
+import sequelize from "../config/database.js";
 import { DataTypes, UUIDV4 } from "sequelize";
 
 const Certification = sequelize.define(
@@ -15,8 +15,9 @@ const Certification = sequelize.define(
       allowNull: false,
       references: {
         model: "volunteers",
-        key: id,
+        key: "id",
       },
+      onDelete: "CASCADE",
     },
     institution: {
       type: DataTypes.STRING,
@@ -28,9 +29,11 @@ const Certification = sequelize.define(
     },
     fieldOfStudy: {
       type: DataTypes.STRING,
+      allowNull: null,
     },
-    issueDate: {
-      type: DataTypes.DATEONLY,
+    duration: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

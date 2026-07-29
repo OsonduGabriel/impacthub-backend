@@ -209,3 +209,39 @@ export const validateUpdateVolunteer = [
     next();
   },
 ];
+
+export const validateCertification = [
+  body("volId").custom((value) => {
+    if (value !== undefined) {
+      throw new Error("Users are not allowed to change certification IDs");
+    }
+    return true;
+  }),
+  body("institution")
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("degree")
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("fieldOfStudy")
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("duration")
+    .trim()
+    .notEmpty()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: "failed", errors: errors.array() });
+    }
+    next();
+  },
+];

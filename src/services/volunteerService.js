@@ -4,6 +4,7 @@ import fs from "fs/promises";
 import path from "path";
 import Volunteer from "../model/volunteerModel.js";
 import sequelize from "../config/database.js";
+import User from "../model/userModel.js";
 
 export class VolunteerService {
   async createProfile(user) {
@@ -144,6 +145,7 @@ export class VolunteerService {
     if (isDeleted === false) {
       throw new Error("Unable to delete volunteer");
     }
+    await User.destroy({ where: { id: userId } });
     return isDeleted;
   }
 }

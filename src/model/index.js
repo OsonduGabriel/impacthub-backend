@@ -7,12 +7,13 @@ User.hasOne(Volunteer, {
   onDelete: "CASCADE",
 });
 
-Volunteer.belongsTo(User, { foreignKey: userId });
+Volunteer.belongsTo(User, { foreignKey: "userId" });
 
 Volunteer.hasMany(Certification, {
   as: "certifications",
   foreignKey: "volId",
   onDelete: "CASCADE",
+  hooks: true,
 });
 Certification.belongsTo(Volunteer, { foreignKey: "volId" });
 

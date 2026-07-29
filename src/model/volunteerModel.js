@@ -17,6 +17,7 @@ const Volunteer = sequelize.define(
         model: "users",
         key: "id",
       },
+      onDelete: "CASCADE",
     },
     profTitle: {
       type: DataTypes.STRING,

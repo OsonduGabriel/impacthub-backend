@@ -1,9 +1,12 @@
 import jwt from "jsonwebtoken";
+import redisClient from "../config/redis.js";
 import { AuthService } from "../services/authService.js";
-const authService = new AuthService();
+
 import crypto from "crypto";
 import sendOTP from "../helpers/emailHelper.js";
 import { error } from "console";
+const authService = new AuthService();
+
 //
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -166,6 +169,24 @@ export const registerNgoAdmin = async (req, res, next) => {
     return res.status(201).json({
       status: "success",
       message: "NGO Admin created successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logout = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // decode to get user details from token.
+    const currentTime = Math.floor(Date.now() / 1000);
+    const ttl = decoded.exp - currentTime;
+    if (ttl > 0) {
+      await redisClient.setEx(`blackList_${token}`, ttl, "revoked");
+    }
+    res.status(200).json({
+      status: "success",
+      message: "logged out successfully",
     });
   } catch (error) {
     next(error);

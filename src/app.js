@@ -11,6 +11,7 @@ import authRouter from "./routes/authRoute.js";
 import { Sequelize } from "sequelize";
 import volunteerRouter from "./routes/volunteerRoute.js";
 import userRouter from "./routes/userRoute.js";
+import certificationRouter from "./routes/certificationRoute.js";
 
 // Load environment variables. this enables us to use the .env file
 dotenv.config();
@@ -30,6 +31,7 @@ app.use(
 app.use("/api/auth/v1", authRouter);
 app.use("/api/auth/v1", volunteerRouter);
 app.use("/api/auth/v1", userRouter);
+app.use("/api/auth/v1", certificationRouter);
 
 // Error Handler
 app.use(errorHandler);
