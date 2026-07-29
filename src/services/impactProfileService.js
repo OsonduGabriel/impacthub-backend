@@ -1,6 +1,11 @@
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import ImpactProfile from "../model/impactProfileModel"
 import { where } from "sequelize";
+
+const nanoid = customAlphabet(
+    "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    15
+)
 
 //get a volunteer's impact profile
 export const getImpactProfile = async(volunteerId) => {
@@ -67,6 +72,6 @@ export const generateShareableLink = async(volunteerId) => {
 }
 
 //get profile from a shared link
-export const getProfile = async(shareableLink) => {
+export const getPublicProfile = async(shareableLink) => {
     return await ImpactProfile.findOne({where: {shareableLink, isPublic: true}})
 }

@@ -2,6 +2,7 @@ import puppeteer from "puppeteer"
 import ejs from "ejs"
 import fs from "fs"
 import path from "path"
+import certificateService from "../services/certificateService"
 
 //generate PDF certificate - this gives the path to the certificate
 export const generatePDF = async( data ) => {
