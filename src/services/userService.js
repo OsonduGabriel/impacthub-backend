@@ -43,7 +43,7 @@ export class UserService {
   }
 
   async editUser(id, updates) {
-    const [changedColumns] = await User.update(updates, {
+    const changedColumns = await User.update(updates, {
       where: { id },
       validate: true,
     });

@@ -245,3 +245,45 @@ export const validateCertification = [
     next();
   },
 ];
+
+export const validateUpdateCertification = [
+  body("volId").custom((value) => {
+    if (value !== undefined) {
+      throw new Error("Users are not allowed to change IDs");
+    }
+    return true;
+  }),
+  body("id").custom((value) => {
+    if (value !== undefined) {
+      throw new Error("Users are not allowed to change IDs");
+    }
+    return true;
+  }),
+  body("institution")
+    .optional()
+    .trim()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("degree")
+    .trim()
+    .optional()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("fieldOfStudy")
+    .trim()
+    .optional()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  body("duration")
+    .trim()
+    .optional()
+    .isString()
+    .withMessage("Please enter a valid institution"),
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ status: "failed", errors: errors.array() });
+    }
+    next();
+  },
+];
