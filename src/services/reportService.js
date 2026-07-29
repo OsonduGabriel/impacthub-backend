@@ -4,7 +4,7 @@ import Opportunity from "../model/opportunityModel"
 import Contribution from "../model/contributionModel"
 import Certificate from "../model/certificateModel"
 
-import { Sequelize } from "sequelize"
+import { Sequelize, where } from "sequelize"
 
 //send statistics for the dashboard
 export const getDashboardStatistics = async() => {
@@ -24,6 +24,17 @@ export const getDashboardStatistics = async() => {
     const verifiedHours = await Contribution.sum("verifiedHours")
 
     return{totalVolunteer, totalNGO, totalOpportunities, totalCertificate, verifiedHours: verifiedHours || 0}
+}
+
+//create platform report. Includes dashboard plus extra analysis
+export const getPlatformReport = async() => {
+    const dashboard = await getDashboardStatistics()
+
+    const activeOpportunities = await Opportunity.count({where: {status: "OPEN"}})
+
+    const completedContributions = await Contribution.count({where: {status: "VERIFIED"}})
+
+    return {...dashboard, activeOpportunities, completedContributions}
 }
 
 //*Note: There is no reportModel because the reports are generated dynamically(calculated every time) instead of storing them
