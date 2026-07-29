@@ -43,3 +43,4 @@ export const deleteOpportunity = async (userId, opportunityId) => {
   if (opportunity.status !== 'draft') throw new Error('Only draft opportunities can be deleted');
   await opportunity.destroy();
 };
+export const archiveOpportunity =  (userId, Id) => updateOpportunity(userId, Id, { status: 'archived' });

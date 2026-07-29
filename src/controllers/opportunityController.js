@@ -62,3 +62,11 @@ export const deleteOpportunity = async (req, res) => {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+export const archiveOpportunity = async (req, res) => {
+  try {
+    const opportunity = await opportunityService.archiveOpportunity(req.user.id, req.params.id);
+    res.json({ success: true, opportunity });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
