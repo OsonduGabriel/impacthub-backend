@@ -4,6 +4,7 @@ import authRoutes from "./authRoute.js";
 import userRoutes from "./userRoute.js";
 import ngoRoutes from "./ngoRoute.js";
 import opportunityRoutes from "./opportunityRoute.js";
+import applicationRoutes from "./applicationRoute.js"
 import certificateRoutes from "./certificateRoute.js";
 import impactProfileRoutes from "./impactProfileRoute.js";
 import notificationRoutes from "./notificationRoute.js";
@@ -18,6 +19,8 @@ router.use("/users", userRoutes);
 router.use("/ngos", ngoRoutes);
 
 router.use("/opportunities", opportunityRoutes);
+
+router.use("/applications", applicationRoutes)
 
 router.use("/certificates", certificateRoutes);
 
