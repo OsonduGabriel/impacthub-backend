@@ -18,7 +18,7 @@ const NGO = sequelize.define('NGO', {
     defaultValue: 'pending',
   },
   verificationDocuments: { type: DataTypes.STRING, allowNull: true },
-  userId: { type: DataTypes.INTEGER, allowNull: false, unique: true },
+  userId: { type: DataTypes.UUID, allowNull: false, unique: true },
 }, {
   tableName: 'ngos',
   timestamps: true,

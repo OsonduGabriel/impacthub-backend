@@ -5,10 +5,11 @@ import ngoRoute from './routes/ngoRoute.js';
 import opportunityRoute from './routes/opportunityRoute.js';
 import applicationRoute from './routes/applicationRoute.js';
 import contributionRoute from './routes/contributionRoute.js';
+import authRoute from './routes/authRoute.js';
 const app = express();
 
-app.use(express.json()); // lets Express read JSON bodies from POST/PUT requests
-
+app.use(express.json()); // lets E
+app.use('/api/auth/v1', authRoute);
 app.use('/ngo', ngoRoute);
 app.use('/contributions', contributionRoute);
 app.use('/applications', applicationRoute);
