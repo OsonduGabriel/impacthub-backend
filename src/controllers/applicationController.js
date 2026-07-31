@@ -72,6 +72,14 @@ export const listApplications = async (req, res) => {
     res.status(400).json({ success: false, error: error.message });
   }
 };
+export const applyForOpportunity = async (req, res) => {
+  try {
+    const application = await applicationService.applyForOpportunity(req.user.id, req.body.opportunityId);
+    res.status(201).json({ success: true, application });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
 
 export const acceptApplication = async (req, res) => {
   try {
@@ -89,4 +97,13 @@ export const rejectApplication = async (req, res) => {
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
+};
+
+export const withdrawApplication = async (req, res) => {
+  try {
+    const application = await applicationService.withdrawApplication(req.user.id, req.params.id);
+    res.json({ success: true, application });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  } 
 };

@@ -39,3 +39,17 @@ export const rejectApplication = async (userId, applicationId) => {
   await application.save();
   return application;
 };
+export const applyForOpportunity = async (userId, opportunityId) => {
+  const existing = await Application.findOne({ where: { opportunityId, volunteerId: userId } });
+  if (existing) throw new Error('You have already applied for this opportunity');
+  return Application.create({ opportunityId, volunteerId: userId, status: 'submitted' });
+};
+export const withdrawApplication = async (userId, applicationId) => {
+  const application = await Application.findByPk(applicationId);
+  if (!application) throw new Error('Application not found');
+  if(application.volunteerId !== userId) throw new Error('Not authorized to withdraw this application');
+  if (application.status === 'accepted') throw new Error('Cannot withdraw an accepted application');
+  application.status = 'withdrawn';
+  await application.save();
+  return application;
+};
