@@ -1,18 +1,16 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
-const Contribution = sequelize.define('Contribution', {
+const Application = sequelize.define('Application', {
   opportunityId: { type: DataTypes.INTEGER, allowNull: false },
   volunteerId: { type: DataTypes.UUID, allowNull: false },
-  hoursLogged: { type: DataTypes.FLOAT, allowNull: false },
-  evidence: { type: DataTypes.STRING, allowNull: true },
   status: {
-    type: DataTypes.ENUM('pending', 'verified', 'rejected'),
-    defaultValue: 'pending',
+    type: DataTypes.ENUM('submitted', 'under_review', 'accepted', 'rejected', 'withdrawn'),
+    defaultValue: 'submitted',
   },
 }, {
-  tableName: 'contributions',
+  tableName: 'applications',
   timestamps: true,
 });
 
-export default Contribution;
+export default Application;

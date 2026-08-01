@@ -28,8 +28,8 @@ export const rejectContribution = async (req, res) => {
 };
 export const logContribution = async (req, res) => {
   try {
-    const { opportunityId, hourslogged, evidence } = req.body;
-    const contribution = await contributionService.logContribution(req.user.id, opportunityId, hourslogged, evidence);
+    const { opportunityId, hoursLogged, evidence } = req.body;
+    const contribution = await contributionService.logContribution(req.user.id, opportunityId, hoursLogged, evidence);
     res.status(201).json({ success: true, contribution });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });

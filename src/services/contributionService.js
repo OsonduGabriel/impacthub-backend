@@ -37,7 +37,7 @@ export const rejectContribution = async (userId, contributionId) => {
   await contribution.save();
   return contribution;
 };
-export const logContribution = async (userId, opportunityId, hourslogged, evidence) => {
-  if (!opportunityId || !hourslogged) throw new Error('Opportunity ID and hours logged are required');
-  return Contribution.create({ opportunityId, volunteerId: userId, hourslogged, evidence, status: 'pending' });
+export const logContribution = async (userId, opportunityId, hoursLogged, evidence) => {
+  if (!opportunityId || !hoursLogged) throw new Error('Opportunity ID and hours logged are required');
+  return Contribution.create({ opportunityId, volunteerId: userId, hoursLogged, evidence, status: 'pending' });
 };
