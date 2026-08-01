@@ -1,49 +1,55 @@
-import Application from "../model/applicationModel";
-import Application from "../model/applicationModel";
-import Opportunity from "../model/opportunityModel"
-import { where } from "sequelize";
+import { Application, Opportunity, NGO } from '../model/associations.js';
 
-//apply for opportunities
-export const applyForOpportunity = async(volunteerId, opportunityId) => {
-    //check IF the opportunity exist
-    const opportunity = await Opportunity.findByPk(opportunityId) 
+export const getApplicationsForNGO = async (userId, opportunityId) => {
+  const ngo = await NGO.findOne({ where: { userId } });
+  if (!ngo) throw new Error('NGO profile not found');
 
-    if(opportunity){
-        //*Volunteer should not apply twice for an application
-        const existingApplication = await Application.findOne( {where: {volunteerId, opportunityId}} )
-        if(existingApplication){
-            throw new Error("You have already applied for this opportunity. Can't apply")
-        }
-        //create application
-        const application = await Application.create({volunteerId, opportunityId, status: "SUBMITTED"})
+  const opportunityWhere = { ngoId: ngo.id };
+  if (opportunityId) opportunityWhere.id = opportunityId;
 
-        return application;
-    }
+  return Application.findAll({
+    include: [{ model: Opportunity, where: opportunityWhere }],
+  });
+};
 
-    throw new Error("Opportunity not found")
-}
+const getOwnedApplication = async (userId, applicationId) => {
+  const ngo = await NGO.findOne({ where: { userId } });
+  if (!ngo) throw new Error('NGO profile not found');
 
-//Withdraw an application
-export const withdrawApplication = async(id) => {
-    const application = await Application.findByPk(id)
+  const application = await Application.findByPk(applicationId, {
+    include: [{ model: Opportunity }],
+  });
+  if (!application) throw new Error('Application not found');
+  if (application.Opportunity.ngoId !== ngo.id) {
+    throw new Error('Not authorized to manage this application');
+  }
+  return application;
+};
 
-    if(application){
-        //*volunteer cannot withdraw once accepted by the NGO
-        if(application.status === "ACCEPTED"){
-            throw new Error("Accepted Applications cannot be withdrawn")
-        }
+export const acceptApplication = async (userId, applicationId) => {
+  const application = await getOwnedApplication(userId, applicationId);
+  application.status = 'accepted';
+  await application.save();
+  return application;
+};
 
-        //else withdraw appliction
-        application.status === "WITHDRAWN"
-
-        await application.save()
-        return application
-    }
-
-    throw new Error("Application not found")
-}
-
-//View all applications for a volunteer
-export const getVolunteerApplications = async(volunteerId) => {
-    return await Application.findAll({where: {volunteerId}, include: ["opportunity"]})
-}
+export const rejectApplication = async (userId, applicationId) => {
+  const application = await getOwnedApplication(userId, applicationId);
+  application.status = 'rejected';
+  await application.save();
+  return application;
+};
+export const applyForOpportunity = async (userId, opportunityId) => {
+  const existing = await Application.findOne({ where: { opportunityId, volunteerId: userId } });
+  if (existing) throw new Error('You have already applied for this opportunity');
+  return Application.create({ opportunityId, volunteerId: userId, status: 'submitted' });
+};
+export const withdrawApplication = async (userId, applicationId) => {
+  const application = await Application.findByPk(applicationId);
+  if (!application) throw new Error('Application not found');
+  if(application.volunteerId !== userId) throw new Error('Not authorized to withdraw this application');
+  if (application.status === 'accepted') throw new Error('Cannot withdraw an accepted application');
+  application.status = 'withdrawn';
+  await application.save();
+  return application;
+};

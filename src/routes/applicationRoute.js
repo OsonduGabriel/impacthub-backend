@@ -1,22 +1,11 @@
-import express from "express"
-import { apply, withdraw, getApplications } from "../controllers/applicationController"
+import express from 'express';
+import * as applicationController from '../controllers/applicationController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
-//authentication and authorization middleware done by Oluwatosin
-import protect from "../middleware/protect.js"
-import authorize from "../middleware/authorize.js"
-
-const route = express.Router()
-
-//apply for an opportunity
-route.post("/", protect, authorize("VOLUNTEER"), apply)
-
-//volunteer views their application
-route.get("/", protect, authorize("VOLUNTEER"), getApplications)
-
-//withdraw application
-route.get("/:id/withdraw", protect, authorize("VOLUNTEER"), withdraw)
-
-export default route
-
-//*Note: protect - checks that the user is verified using jwt, authenticated, logged-in and attaches the user id to req.user
-//*Note: authorize - checks the user role to make sure only volunteers can apply and not ngo/platform admin
+const router = express.Router();
+router.post('/', protect, authorize('volunteer'), applicationController.applyForOpportunity);
+router.get('/', protect, authorize('NGO-admin'), applicationController.listApplications);
+router.patch('/:id/accept', protect, authorize('NGO-admin'), applicationController.acceptApplication);
+router.patch('/:id/reject', protect, authorize('NGO-admin'), applicationController.rejectApplication);
+router.patch('/:id/withdraw', protect, authorize('volunteer'), applicationController.withdrawApplication);
+export default router;

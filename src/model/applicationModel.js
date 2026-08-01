@@ -1,58 +1,16 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 
-import User from "./userModel"
-import Opportunity from "./opportunityModel"
-import { toDefaultValue } from "sequelize/lib/utils";
+const Application = sequelize.define('Application', {
+  opportunityId: { type: DataTypes.INTEGER, allowNull: false },
+  volunteerId: { type: DataTypes.UUID, allowNull: false },
+  status: {
+    type: DataTypes.ENUM('submitted', 'under_review', 'accepted', 'rejected', 'withdrawn'),
+    defaultValue: 'submitted',
+  },
+}, {
+  tableName: 'applications',
+  timestamps: true,
+});
 
-const Application = sequelize.define(
-    "Application",
-    {
-        id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
-            primaryKey: true
-        },
-        volunteerId: {
-            type: DataTypes.UUID,
-            allowNull: false
-        },
-        opportunityId: {
-            type: DataTypes.UUID,
-            allowNull: false
-        },
-        status: {
-            type: DataTypes.ENUM("SUBMITTED", "UNDER_REVIEW", "ACCEPTED", "REJECTED", "WITHDRAWN"),
-            defaultValue: "SUBMITTED",
-            allowNull: false
-        }
-    },
-    {
-        tableName: "application",
-        timestamps: true
-    }
-)
-
-//*associations
-
-//one volunteer can have many applications - 1:N
-User.hasMany(Application, {
-    foreignKey: "volunteerId"
-})
-
-Application.belongsTo(User, {
-    foreignKey: "volunteerId",
-    as: "volunteer"
-})
-
-//one opportunity can receive many applications
-Opportunity.hasMany(Application, {
-    foreignKey: "opportunityId"
-})
-
-Application.belongsTo(Opportunity, {
-    foreignKey: "opportunityId",
-    as: "opportunity"
-})
-
-export default Application
+export default Application;
