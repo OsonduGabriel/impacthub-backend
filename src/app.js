@@ -1,28 +1,52 @@
-import express from 'express';
-import sequelize from './config/database.js';
-import './model/associations.js';
-import ngoRoute from './routes/ngoRoute.js';
-import opportunityRoute from './routes/opportunityRoute.js';
-import applicationRoute from './routes/applicationRoute.js';
-import contributionRoute from './routes/contributionRoute.js';
-import authRoute from './routes/authRoute.js';
-const app = express();
+import express from "express"
+import sequelize from "./config/database.js";
+import dotenv from "dotenv"
+import routes from "./routes/index.js"
 
-app.use(express.json()); // lets E
-app.use('/api/auth/v1', authRoute);
-app.use('/ngo', ngoRoute);
-app.use('/contributions', contributionRoute);
-app.use('/applications', applicationRoute);
-app.use('/opportunities', opportunityRoute);
+//import environment variables
+dotenv.config()
+
+const app = express()
+
+//middleware so we can parse json request
+app.use(express.json())
+
+//middleware to store pdfs and qr codes in public
+app.use(express.static("src/public"));
+
+//registering all routes
+app.use("/api/v1", routes)
 
 
-sequelize.sync({ alter: true })
-  .then(() => console.log('models synced'))
-  .catch(err => console.error('sync failed:', err));
+//test route
+app.get("/", (req, res) => {
+  res.status(200).json({success: true, message: "Welcome to ImpactHub API"})
+})
 
-sequelize.authenticate()
-  .then(() => console.log('Database connected'))
-  .catch(err => console.error('connection failed:', err));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Connect to PostgreSQL and start the server
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("PostgreSQL connected successfully.");
+
+    // Sync models with the database
+    await sequelize.sync();
+
+    console.log("Database synchronized.");
+
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+
+  } catch (error) {
+    console.error("Failed to connect to the database.");
+    console.error(error);
+  }
+};
+
+startServer();
+
+export default app
