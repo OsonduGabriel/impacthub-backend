@@ -1,4 +1,4 @@
-import { getUserNotification, markAsRead, markAllAsRead, deleteNotification } from "../services/notificationService";
+import { getUserNotification, markAsRead, markAllAsRead, deleteNotification } from "../services/notificationService.js";
 
 //get notifications for a particular user - Route: GET /api/v1/notifications
 export const getNotifications = async(req, res, next) => {

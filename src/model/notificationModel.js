@@ -1,5 +1,5 @@
 import {DataTypes, ENUM} from "sequelize"
-import sequelize from "../config/database"
+import sequelize from "../config/database.js"
 
 //stores notifications sent to users
 const Notification = sequelize.define(
@@ -45,7 +45,7 @@ const Notification = sequelize.define(
         }
     },
     {
-        tableName: "Notification",
+        tableName: "notifications",
         timestamps: true
     }
 )

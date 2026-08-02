@@ -2,6 +2,7 @@ import express from "express";
 
 import authRoutes from "./authRoute.js";
 import userRoutes from "./userRoute.js";
+import volunteerRoutes from "./volunteerRoute.js";
 import ngoRoutes from "./ngoRoute.js";
 import opportunityRoutes from "./opportunityRoute.js";
 import applicationRoutes from "./applicationRoute.js"
@@ -15,6 +16,8 @@ const router = express.Router();
 router.use("/auth", authRoutes);
 
 router.use("/users", userRoutes);
+
+router.use("/", volunteerRoutes);
 
 router.use("/ngos", ngoRoutes);
 

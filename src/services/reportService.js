@@ -1,8 +1,8 @@
-import Volunteer from "../model/volunteerModel"
-import Ngo from "../model/ngoModel"
-import Opportunity from "../model/opportunityModel"
-import Contribution from "../model/contributionModel"
-import Certificate from "../model/certificateModel"
+import Volunteer from "../model/volunteerModel.js"
+import Ngo from "../model/ngoModel.js"
+import Opportunity from "../model/opportunityModel.js"
+import Contribution from "../model/contributionModel.js"
+import Certificate from "../model/certificateModel.js"
 
 import { Sequelize, where } from "sequelize"
 
@@ -21,7 +21,7 @@ export const getDashboardStatistics = async() => {
     const totalCertificate = await Certificate.count()
 
     //sum all verified volunteer hours
-    const verifiedHours = await Contribution.sum("verifiedHours")
+    const verifiedHours = await Contribution.sum("hoursLogged", {where: {status: "verified"}})
 
     return{totalVolunteer, totalNGO, totalOpportunities, totalCertificate, verifiedHours: verifiedHours || 0}
 }
@@ -30,9 +30,9 @@ export const getDashboardStatistics = async() => {
 export const getPlatformReport = async() => {
     const dashboard = await getDashboardStatistics()
 
-    const activeOpportunities = await Opportunity.count({where: {status: "OPEN"}})
+    const activeOpportunities = await Opportunity.count({where: {status: "open"}})
 
-    const completedContributions = await Contribution.count({where: {status: "VERIFIED"}})
+    const completedContributions = await Contribution.count({where: {status: "verified"}})
 
     return {...dashboard, activeOpportunities, completedContributions}
 }

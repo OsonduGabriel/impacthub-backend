@@ -1,16 +1,32 @@
 {
+  "name": "impacthubapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
     "express": "^5.2.1",
+    "express-validator": "^7.3.2",
     "jsonwebtoken": "^9.0.3",
-    "mysql2": "^3.23.1",
+    "multer": "^2.2.0",
     "nanoid": "^6.0.0",
+    "nodemailer": "^9.0.3",
     "pg": "^8.22.0",
     "pg-hstore": "^2.3.4",
     "puppeteer": "^25.4.0",
     "qrcode": "^1.5.4",
+    "redis": "^6.2.0",
     "sequelize": "^6.37.8"
   },
   "devDependencies": {

@@ -1,18 +1,19 @@
 import express from "express"
-import { getNotifications, readNotification, readAllNotification, removeNotification } from "../controllers/notificationController"
+import { getNotifications, readNotification, readAllNotification, removeNotification } from "../controllers/notificationController.js"
+import { protect } from "../middleware/authMiddleware.js";
 
 const route = express.Router()
 
-//get all notification
-route.get("/", getNotifications)
+// Get all notifications
+route.get("/", protect, getNotifications);
 
-//mark a notification as read
-route.patch("/:id/read", readNotification)
+// Mark one notification as read
+route.patch("/:id/read", protect, readNotification);
 
-//mark all notifications as read
-route.patch("/read-all", readAllNotification)
+// Mark all notifications as read
+route.patch("/read-all", protect, readAllNotification);
 
-//delete a notification
-route.delete("/:id", removeNotification)
+// Delete notification
+route.delete("/:id", protect, removeNotification);
 
 export default route

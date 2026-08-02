@@ -1,4 +1,4 @@
-import * as impactProfileService from "../services/impactProfileService"
+import * as impactProfileService from "../services/impactProfileService.js"
 
 //get impact profile - Route: GET/api/v1/impact-profile
 export const getProfile = async(req, res, next) => {
@@ -9,10 +9,10 @@ export const getProfile = async(req, res, next) => {
         const profile = await impactProfileService.getImpactProfile(volunteerId)
 
         if(profile){
-            res.status(200).json({success: true, data: profile})
+            return res.status(200).json({success: true, data: profile})
         }
 
-        res.status(404).json({success: false, message: "Impact profile not found"})
+        return res.status(404).json({success: false, message: "Impact profile not found"})
     } catch (error) {
         next(error)
     }
@@ -51,10 +51,10 @@ export const getSharedProfile = async(req, res, next) => {
         const profile = await impactProfileService.getPublicProfile(shareableLink)
 
         if(profile){
-            res.status(200).json({success: true, data: profile})
+            return res.status(200).json({success: true, data: profile})
         }
 
-        res.status(404).json({success: false, message: "Public profile not found"})
+        return res.status(404).json({success: false, message: "Public profile not found"})
     } catch (error) {
         next(error)
     }

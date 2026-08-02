@@ -1,14 +1,27 @@
 import sequelize from "../config/database.js";
 import { DataTypes } from "sequelize";
-import bcrypt from "bcrypt";
 
-const User = sequelize.define(
-  "User",
+const Volunteer = sequelize.define(
+  "Volunteer",
   {
     id: {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
+    },
+
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onDelete: "CASCADE",
+    },
+    profTitle: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     firstname: {
       type: DataTypes.STRING,
@@ -24,68 +37,45 @@ const User = sequelize.define(
       unique: true,
       validate: { isEmail: true },
     },
-
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    role: {
-      type: DataTypes.ENUM("volunteer", "NGO-admin", "platform-admin", "user"),
-      defaultValue: "user",
-    },
-    isActive: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-    },
-    resetPasswordToken: {
+    state: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    resetPasswordExpires: {
-      type: DataTypes.DATE,
+    country: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
-    lastLogin: {
-      type: DataTypes.DATE,
+    skills: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      defaultValue: [],
+    },
+    about: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    experience: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    avatarUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    websiteUrl: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    cvUrl: {
+      type: DataTypes.STRING,
       allowNull: true,
     },
   },
-  {
-    hooks: {
-      beforeCreate: async (user) => {
-        if (user.password) {
-          let salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-      beforeUpdate: async (user) => {
-        if (user.changed("password")) {
-          let salt = await bcrypt.genSalt(10);
-          user.password = await bcrypt.hash(user.password, salt);
-        }
-      },
-    },
-    tableName: "users",
-    timestamps: true,
-  },
+  { underscored: true, tableName: "volunteers", timestamps: true },
 );
 
-// Instance methods using the class method ideaology
-User.prototype.comparePassword = async function (inputPassword) {
-  return bcrypt.compare(inputPassword, this.password);
-};
-
-// ensure that when data is pulled from Database, some important sensitive data is not sent back
-User.prototype.toJSON = function () {
-  const values = { ...this.get({ plain: true }) }; // to ensure all nested models are converted to plain objects too
-  delete values.password;
-  delete values.resetPasswordToken;
-  delete values.resetPasswordExpires;
-  return values;
-};
-export default User;
+export default Volunteer;

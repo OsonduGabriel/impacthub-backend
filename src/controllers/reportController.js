@@ -1,4 +1,4 @@
-import { getDashboardStatistics, getPlatformReport } from "../services/reportService";
+import { getDashboardStatistics, getPlatformReport } from "../services/reportService.js";
 
 //get dashboard statistics - Route: Get /api/v1/dashboard
 export const dashboardStatistics = async(req, res, next) => {

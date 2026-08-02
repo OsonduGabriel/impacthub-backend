@@ -1,5 +1,5 @@
 import express from "express"
-import { dashboardStatistics, platformReport } from "../controllers/reportController"
+import { dashboardStatistics, platformReport } from "../controllers/reportController.js"
 
 const route = express.Router()
 

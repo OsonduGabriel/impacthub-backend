@@ -1,16 +1,17 @@
 import express from "express"
-import * as certificateController from "../controllers/certificateController"
+import * as certificateController from "../controllers/certificateController.js"
+import { protect, authorize } from "../middleware/authMiddleware.js";
 
 const route = express.Router()
 
 //generate a new certificate
-route.post("/", certificateController.generateCertificate)
+route.post("/", protect, authorize("ngo", "admin"), certificateController.generateCertificate)
 
 //get all certificates
 route.get("/", certificateController.getCertificates)
 
 //verify certificate
-route.get("/verify/:certificateId", certificateController.markAsDownloaded)
+route.get("/verify/:certificateId", certificateController.verifyCertificate)
 
 //get one certificate by id
 route.get("/:id", certificateController.generateCertificateById)

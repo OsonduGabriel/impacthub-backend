@@ -3,6 +3,10 @@ import Opportunity from './opportunityModel.js';
 import Application from './applicationModel.js';
 import Contribution from './contributionModel.js';
 import User from './userModel.js';
+import Volunteer from "./volunteerModel.js";
+import Certificate from "./certificateModel.js";
+import Notification from "./notificationModel.js";
+import ImpactProfile from "./impactProfileModel.js";
 
 NGO.hasMany(Opportunity, { foreignKey: 'ngoId', onDelete: 'CASCADE' });
 Opportunity.belongsTo(NGO, { foreignKey: 'ngoId' });
@@ -19,4 +23,24 @@ Application.belongsTo(User, { foreignKey: 'volunteerId', as: 'volunteer' });
 User.hasMany(Contribution, { foreignKey: 'volunteerId' });
 Contribution.belongsTo(User, { foreignKey: 'volunteerId', as: 'volunteer' });
 
-export { NGO, Opportunity, Application, Contribution };
+// Volunteer ↔ Certificate
+Volunteer.hasMany(Certificate, {foreignKey: "volunteerId", onDelete: "CASCADE"});
+Certificate.belongsTo(Volunteer, {foreignKey: "volunteerId"});
+
+// NGO ↔ Certificate
+NGO.hasMany(Certificate, {foreignKey: "ngoId"});
+Certificate.belongsTo(NGO, {foreignKey: "ngoId"});
+
+// Opportunity ↔ Certificate
+Opportunity.hasMany(Certificate, {foreignKey: "opportunityId"});
+Certificate.belongsTo(Opportunity, {foreignKey: "opportunityId"});
+
+// User ↔ Notification
+User.hasMany(Notification, {foreignKey: "userId", onDelete: "CASCADE"});
+Notification.belongsTo(User, {foreignKey: "userId"});
+
+// Volunteer ↔ Impact Profile
+Volunteer.hasOne(ImpactProfile, {foreignKey: "volunteerId", onDelete: "CASCADE"});
+ImpactProfile.belongsTo(Volunteer, {foreignKey: "volunteerId"});
+
+export { NGO, Opportunity, Application, Contribution, Volunteer, Certificate, Notification, ImpactProfile};

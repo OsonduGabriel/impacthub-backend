@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../../config/database.js";
+import sequelize from "../config/database.js";
 
 const Certificate = sequelize.define(
   "Certificate",
@@ -22,12 +22,12 @@ const Certificate = sequelize.define(
     },
 
     ngoId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 
     opportunityId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
 

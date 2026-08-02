@@ -1,5 +1,6 @@
 import { customAlphabet } from "nanoid";
-import ImpactProfile from "../model/impactProfileModel"
+import ImpactProfile from "../model/impactProfileModel.js"
+import Certificate from "../model/certificateModel.js";
 import { where } from "sequelize";
 
 const nanoid = customAlphabet(
@@ -13,7 +14,7 @@ export const getImpactProfile = async(volunteerId) => {
 }
 
 //update the impact profile after a contribution has been verified
-export const updateImpactProfile = async(volunteerId, verifiedHours, ngoName) => {
+export const updateImpactProfile = async(volunteerId, verifiedHours) => {
     
     let profile = await ImpactProfile.findOne({where: {volunteerId}})
 
@@ -37,8 +38,16 @@ export const updateImpactProfile = async(volunteerId, verifiedHours, ngoName) =>
     //increase completed opportunities
     profile.completedOpportunities += 1;
 
-    // TODO: Count unique NGOs properly after other backend modules are finished.
-    profile.verifiedNGOs += ngoName ? 1 : 0;
+    // TODO: Count unique NGOs to avoid updating contributions for the same ngo
+    const uniqueNgoCount = await Certificate.count({
+        where: {
+            volunteerId
+        },
+        distinct: true,
+        col: "ngoId"
+    });
+
+    profile.verifiedNgos = uniqueNgoCount;
 
     await profile.save()
     return profile

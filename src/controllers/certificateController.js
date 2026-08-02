@@ -1,4 +1,4 @@
-import * as certificateService from "../services/certificateService"
+import * as certificateService from "../services/certificateService.js"
 
 
 //Generate a new certificate - Route: POST / Certificate
@@ -9,6 +9,8 @@ export const generateCertificate = async(req, res, next) => {
 
         res.status(201).json({success: true, message: "Certificate generated successfully", data: certificate})
     } catch (error) {
+            console.error("ERROR MESSAGE:", error.message);
+        console.error("FULL ERROR:", error);
         //send error to global error handler express middleware
         next(error)
     }
