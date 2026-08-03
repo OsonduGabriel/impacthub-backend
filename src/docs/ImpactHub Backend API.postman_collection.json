@@ -1,0 +1,1705 @@
+{
+  "info": {
+    "_postman_id": "36ed1383-cb17-4c78-8ee8-0d12dfb28af2",
+    "name": "ImpactHub Backend API",
+    "description": "Backend API documentation for the ImpactHub Volunteer & NGO Impact Tracker.\n\nBase URL:  \n[http://localhost:5000/api/v1](http://localhost:5000/api/v1)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54550547",
+    "_collection_link": "https://go.postman.co/collection/54550547-36ed1383-cb17-4c78-8ee8-0d12dfb28af2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register",
+          "item": [
+            {
+              "name": "Register User",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"Osonduo\",\r\n    \"lastname\": \"GAbriella\",\r\n    \"email\": \"gabriella0@exmple.com\",\r\n    \"password\": \"Pasvvord133!\",\r\n    \"phone\": \"+237687123569\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                },
+                "description": "# Register User\n\nCreates a new user account.\n\n## Endpoint\n\nPOST /auth/register\n\n## Description\n\nRegisters a new user in the ImpactHub system and returns a JWT token upon successful registration.\n\n## Request Body\n\n``` json\n{\n  \"firstname\": \"Osondu\",\n  \"lastname\": \"Gabriel\",\n  \"email\": \"gabriel@example.com\",\n  \"password\": \"Password123!\",\n  \"phone\": \"+237687123456\"\n}\n\n ```\n\n## Success Response (201 Created)\n\n``` json\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"UUID\",\n      \"firstname\": \"Osondu\",\n      \"lastname\": \"Gabriel\",\n      \"email\": \"gabriel@example.com\",\n      \"phone\": \"+237687123456\"\n    },\n    \"token\": \"JWT_TOKEN\"\n  }\n}\n\n ```\n\n## Validation Rules\n\n- Email must be unique.\n    \n- Phone number must be unique.\n    \n- Password must contain:\n    \n    - At least one uppercase letter\n        \n    - At least one lowercase letter\n        \n    - At least one number\n        \n    - At least one special character\n        \n\n## Possible Errors\n\n- **400 Bad Request** – Validation failed.\n    \n- **409 Conflict** – User already exists.\n    \n\n**500 Internal Server Error** – Unexpected server error."
+              },
+              "response": [
+                {
+                  "name": "Register User",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"firstname\": \"Osonduo\",\r\n    \"lastname\": \"GAbriella\",\r\n    \"email\": \"gabriella0@exmple.com\",\r\n    \"password\": \"Pasvvord133!\",\r\n    \"phone\": \"+237687123569\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "",
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "506"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"1fa-EBZEMOZiQUT+NkWvoGxvSjbBLT0\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 01:18:09 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\n    \"status\": \"success\",\n    \"data\": {\n        \"user\": {\n            \"id\": \"f673cd5d-6aeb-4c5a-b21f-194dcb592e33\",\n            \"role\": \"user\",\n            \"isActive\": true,\n            \"firstname\": \"Osonduo\",\n            \"lastname\": \"GAbriella\",\n            \"email\": \"gabriella0@exmple.com\",\n            \"phone\": \"+237687123569\",\n            \"updatedAt\": \"2026-08-02T01:18:09.089Z\",\n            \"createdAt\": \"2026-08-02T01:18:09.089Z\",\n            \"lastLogin\": null\n        },\n        \"token\": \"YOUR_JWT_TOKEN\"\n    }\n}"
+                }
+              ]
+            },
+            {
+              "name": "Forgot Password",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"testvolunteer01@example.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/forgot-password",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "forgot-password"
+                  ]
+                },
+                "description": "# Forgot Password\n\nGenerates a one-time password (OTP) for password recovery and sends it to the user's registered email address.\n\nIf the email exists, a reset token is generated, securely hashed, stored in the database with an expiration time of 10 minutes, and sent to the user's email.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/forgot-password`\n\n---\n\n## Authentication\n\nNo authentication required.\n\n---\n\n## Request Headers\n\n| Header | Value |\n| --- | --- |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n  \"email\": \"testvolunteer01@example.com\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**Status Code:** `200 OK`\n\n``` json\n{\n  \"status\": \"success\",\n  \"message\": \"Reset token sent to email\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n### User Not Found\n\n**Status Code:** `404 Not Found`\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"No user found with that email\"\n}\n\n ```\n\n---\n\n### Email Sending Failed\n\n**Status Code:** `500 Internal Server Error`\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error sending email. Please try again later\"\n}\n\n ```\n\n---\n\n## Notes\n\n- A 6-digit OTP is generated for password recovery.\n    \n- The OTP is hashed before being stored in the database.\n    \n- The reset token expires after **10 minutes**.\n    \n- The plain OTP is only sent to the user's email and is never stored in plain text.\n    \n\n---\n\n## Tested"
+              },
+              "response": [
+                {
+                  "name": "Forgot Password",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"email\": \"testvolunteer01@example.com\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/forgot-password",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "forgot-password"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": null,
+                  "header": [
+                    {
+                      "key": "X-Powered-By",
+                      "value": "Express"
+                    },
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json; charset=utf-8"
+                    },
+                    {
+                      "key": "Content-Length",
+                      "value": "57"
+                    },
+                    {
+                      "key": "ETag",
+                      "value": "W/\"39-SnJc4QcoCGRkIWgx/7VSbcH1Dww\""
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sun, 02 Aug 2026 01:57:34 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=5"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": \"success\",\n    \"message\": \"Rest token sent to email\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Login",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{ngoadminToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"email\": \"jane1@greenfuture.org\",\r\n  \"password\": \"Password@123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                },
+                "description": "# Login User\n\nAuthenticates an existing user using their email and password.\n\nIf the credentials are valid, the API returns the authenticated user's profile information and a JSON Web Token (JWT). This token is required to access all protected endpoints in the ImpactHub API.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/login`\n\n---\n\n## Authentication\n\nNo authentication required.\n\n---\n\n## Request Headers\n\n| Header | Value |\n| --- | --- |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n  \"email\": \"testvolunteer01@example.com\",\n  \"password\": \"Test@1234\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**Status Code:** `200 OK`\n\n``` json\n{\n  \"status\": \"success\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"<USER_ID>\",\n      \"firstname\": \"Test\",\n      \"lastname\": \"Volunteer\",\n      \"email\": \"testvolunteer01@example.com\",\n      \"phone\": \"+237681234570\",\n      \"role\": \"volunteer\",\n      \"isActive\": true,\n      \"lastLogin\": \"2026-08-02T01:49:43.025Z\",\n      \"createdAt\": \"2026-08-02T01:43:51.874Z\",\n      \"updatedAt\": \"2026-08-02T01:49:43.025Z\"\n    },\n    \"token\": \"<JWT_TOKEN>\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### Invalid Email or Password\n\n**Status Code:** `400 Bad Request`\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Incorrect Email or Password\"\n}\n\n ```\n\n---\n\n### User Not Registered\n\nOccurs when the user account exists but has not yet been assigned the Volunteer or NGO Admin role.\n\n**Status Code:** `400 Bad Request`\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"User not registered as Volunteer or NGO Admin\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Passwords are securely verified using **bcrypt**.\n    \n- A successful login updates the user's **lastLogin** timestamp.\n    \n- The returned JWT should be included in the `Authorization` header for all protected endpoints.\n    \n\nExample:\n\n```\nAuthorization: Bearer <JWT_TOKEN>\n\n ```\n\n---\n\n## Tested\n\n✅ Successfully tested using Postman."
+              },
+              "response": [
+                {
+                  "name": "Login",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"email\": \"testvolunteer01@example.com\",\r\n    \"password\": \"Test@1234\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/login",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\r\n    \"status\": \"success\",\r\n    \"data\": {\r\n        \"user\": {\r\n            \"id\": \"09d86b68-d546-41e3-9e0c-33cc70395f55\",\r\n            \"firstname\": \"Test\",\r\n            \"lastname\": \"Volunteer\",\r\n            \"email\": \"testvolunteer01@example.com\",\r\n            \"phone\": \"+237681234570\",\r\n            \"role\": \"volunteer\",\r\n            \"isActive\": true,\r\n            \"lastLogin\": \"2026-08-02T01:49:43.025Z\",\r\n            \"createdAt\": \"2026-08-02T01:43:51.874Z\",\r\n            \"updatedAt\": \"2026-08-02T01:49:43.025Z\"\r\n        },\r\n        \"token\": \"YOUR_JWT_TOKEN\"\r\n    }\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Reset Password",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"password\": \"NewPassword@123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/auth/reset-password/{{token}}",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "reset-password",
+                    "{{token}}"
+                  ]
+                },
+                "description": "# Reset Password\n\nResets a user's password using a valid password reset token.\n\nThe reset token is generated during the **Forgot Password** process and is sent to the user's registered email address. The token is hashed and validated before allowing the password to be changed.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/reset-password/:token`\n\n---\n\n## Authentication\n\nNo authentication required.\n\n---\n\n## Path Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| token | String | Password reset token received via email |\n\n---\n\n## Request Headers\n\n| Header | Value |\n| --- | --- |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n    \"password\": \"NewPassword@123\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**201 Created**\n\n``` json\n{\n    \"status\": \"success\",\n    \"token\": \"<JWT_TOKEN>\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n### Invalid or Expired Token\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"Invalid or Expired Token\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Reset tokens expire after **10 minutes**.\n    \n- Passwords are automatically hashed before storage.\n    \n- A new JWT access token is generated after a successful password reset."
+              },
+              "response": []
+            },
+            {
+              "name": "Change Password",
+              "request": {
+                "auth": {
+                  "type": "bearer"
+                },
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"oldPassword\": \"OldPassword@123\",\r\n    \"newPassword\": \"NewPassword@123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "# Change Password\n\nAllows an authenticated user to change their password by providing their current password and a new password.\n\n---\n\n## Endpoint\n\n**PATCH** `/api/v1/auth/change-password`\n\n> **Note:** Replace `PATCH` with the actual HTTP method used in your routes if different. \n  \n\n---\n\n## Authentication\n\nBearer Token Required\n\n```\nAuthorization: Bearer <JWT_TOKEN>\n\n ```\n\n---\n\n## Request Headers\n\n| Header | Value |\n| --- | --- |\n| Authorization | Bearer Token |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n    \"oldPassword\": \"OldPassword@123\",\n    \"newPassword\": \"NewPassword@123\"\n}\n\n ```\n\n---\n\n## Success Response\n\n``` json\n{\n    \"status\": \"success\",\n    \"message\": \"Password changed successfully\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n### Incorrect Current Password\n\n``` json\n{\n    \"status\": \"failed\",\n    \"error\": \"Password Incorrect\",\n    \"message\": \"Enter Current Password\"\n}\n\n ```\n\n### User Not Found\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"User not found\"\n}\n\n ```\n\n---\n\n## Notes\n\n- User must already be authenticated.\n    \n- Current password must be correct.\n    \n- New password is hashed before being stored."
+              },
+              "response": []
+            },
+            {
+              "name": "Register admin",
+              "request": {
+                "auth": {
+                  "type": "bearer"
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register-admin",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register-admin"
+                  ]
+                },
+                "description": "# Register Platform Admin\n\nPromotes an authenticated user to the **Platform Administrator** role.\n\nOnly authorized users should have access to this endpoint.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/register-admin`\n\n---\n\n## Authentication\n\nBearer Token Required\n\n```\nAuthorization: Bearer <JWT_TOKEN>\n\n ```\n\n---\n\n## Success Response\n\n``` json\n{\n    \"status\": \"success\",\n    \"message\": \"Platform Admin created successfully\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"Unauthorized\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Changes the authenticated user's role to **platform-admin**.\n    \n- Intended for system administrators."
+              },
+              "response": [
+                {
+                  "name": "Register admin",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\r\n    \"status\": \"success\",\r\n    \"message\": \"Platform Admin created successfully\"\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Register NGO",
+              "request": {
+                "auth": {
+                  "type": "bearer"
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register-ngo-admin",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register-ngo-admin"
+                  ]
+                },
+                "description": "# Register NGO Admin\n\nPromotes an authenticated user to the **NGO Administrator** role.\n\nOnly authorized users should have access to this endpoint.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/register-ngo-admin`\n\n---\n\n## Authentication\n\nBearer Token Required\n\n```\nAuthorization: Bearer <JWT_TOKEN>\n\n ```\n\n---\n\n## Success Response\n\n``` json\n{\n    \"status\": \"success\",\n    \"message\": \"NGO Admin created successfully\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"Unauthorized\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Changes the authenticated user's role to **NGO-admin**.\n    \n- Intended for NGO account administrators."
+              },
+              "response": [
+                {
+                  "name": "Register NGO",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/auth/register-ngo-admin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "auth",
+                        "register-ngo-admin"
+                      ]
+                    }
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\r\n    \"status\": \"success\",\r\n    \"message\": \"NGO Admin created successfully\"\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Logout",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "description": "# Logout\n\nLogs the authenticated user out of the application by invalidating the current JWT access token.\n\nThe token is added to a Redis blacklist until it expires, preventing further use.\n\n---\n\n## Endpoint\n\n**POST** `/api/v1/auth/logout`\n\n---\n\n## Authentication\n\nBearer Token Required\n\n```\nAuthorization: Bearer <JWT_TOKEN>\n\n ```\n\n---\n\n## Success Response\n\n``` json\n{\n    \"status\": \"success\",\n    \"message\": \"logged out successfully\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"Invalid or expired token\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Requires Redis to be configured.\n    \n- Blacklists the JWT until its expiration time.\n    \n- The user must log in again to obtain a new access token."
+              },
+              "response": [
+                {
+                  "name": "Logout",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": []
+                  },
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [
+                    {
+                      "expires": "Invalid Date",
+                      "domain": "",
+                      "path": ""
+                    }
+                  ],
+                  "body": "{\r\n    \"status\": \"success\",\r\n    \"message\": \"logged out successfully\"\r\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Volunteer",
+          "item": [
+            {
+              "name": "Register volunteer",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/volunteer/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "volunteer",
+                    "register"
+                  ]
+                },
+                "description": "# Register Volunteer\n\nRegisters the authenticated user as a volunteer and creates a volunteer profile using the user's account information.\n\n## Endpoint\n\n`POST {{baseUrl}}/volunteer/register`\n\n## Authentication\n\nBearer Token required.\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{token}} |\n\n## Request Body\n\nNo request body is required.\n\n## Success Response (201 Created)\n\n``` json\n{\n    \"status\": \"success\",\n    \"data\": {\n        \"id\": \"...\",\n        \"userId\": \"...\",\n        \"firstname\": \"Test\",\n        \"lastname\": \"Volunteer\",\n        \"email\": \"test@example.com\",\n        \"phone\": \"+237681234570\"\n    }\n}\n\n ```\n\n## Error Responses\n\n### 400 Bad Request\n\n``` json\n{\n    \"status\": \"failed\",\n    \"message\": \"Volunteer already Exists\"\n}\n\n ```\n\n### 401 Unauthorized\n\nReturned when no authentication token is supplied.\n\n### 403 Forbidden\n\nReturned when the authenticated user is not assigned the **user** role."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Certificates",
+      "item": [
+        {
+          "name": "Generate certificate",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\r\n  \"ngoId\": 1,\r\n  \"opportunityId\": 1,\r\n  \"verifiedHours\": 12\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/certificates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates"
+              ]
+            },
+            "description": "## Generate Certificate\n\nGenerates a volunteer certificate after verifying that the volunteer has a verified contribution for the selected opportunity. A QR code and PDF certificate are generated automatically, the certificate is saved, and a notification is sent to the volunteer.\n\n- **URL:** `/api/v1/certificates`\n    \n- **Method:** `POST`\n    \n- **Access:** Internal / Authorized Service\n    \n\n### Request Body\n\n``` json\n{\n  \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n  \"ngoId\": 1,\n  \"opportunityId\": 1,\n  \"verifiedHours\": 12\n}\n\n ```\n\n### Success Response (201 Created)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate generated successfully\",\n  \"data\": {\n    \"certificate\": {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    },\n    \"volunteerName\": \"Test Volunteer\",\n    \"ngoName\": \"red Future Foundation\",\n    \"opportunityTitle\": \"Community dump Cleanup Volunteer\"\n  }\n}\n\n ```\n\n### Possible Error Responses\n\n**Volunteer not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer not found\"\n}\n\n ```\n\n**NGO not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"NGO not found\"\n}\n\n ```\n\n**Opportunity not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Opportunity not found\"\n}\n\n ```\n\n**Contribution not verified**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer contribution has not been verified.\"\n}\n\n ```\n\n**Certificate already exists**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate has already been generated.\"\n}\n\n ```\n\n### Notes\n\n- The volunteer must exist.\n    \n- The NGO must exist.\n    \n- The opportunity must exist.\n    \n- The volunteer must have a **verified** contribution for the specified opportunity.\n    \n- Only one certificate can be generated per volunteer per opportunity.\n    \n- A unique certificate ID is generated automatically.\n    \n- A QR code is generated for certificate verification.\n    \n- A PDF certificate is generated and stored.\n    \n- A notification is automatically created for the volunteer after successful certificate generation."
+          },
+          "response": []
+        },
+        {
+          "name": "Get certificates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates"
+              ]
+            },
+            "description": "## Get All Certificates\n\nRetrieves all certificates that have been generated in the system.\n\n- **URL:** `/api/v1/certificates`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied. This can be protected later if required.)_\n    \n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- Returns an array of all certificates stored in the database.\n    \n- Each certificate contains:\n    \n    - Unique certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code file path\n        \n    - PDF certificate file path\n        \n    - Current certificate status\n        \n    - Issue date\n        \n    - Creation and last update timestamps\n        \n- If no certificates exist, the endpoint returns an empty array:\n    \n\n``` json\n{\n  \"success\": true,\n  \"data\": []\n}\n\n ```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get a certificate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates/c24e9548-17f5-4668-a99a-58736aed479c",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates",
+                "c24e9548-17f5-4668-a99a-58736aed479c"
+              ]
+            },
+            "description": "## Get Certificate by ID\n\nRetrieves the details of a single certificate using its database ID.\n\n- **URL:** `/api/v1/certificates/:id`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied.)_\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Example Request\n\n``` http\nGET /api/v1/certificates/c24e9548-17f5-4668-a99a-58736aed479c\n\n ```\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n    \"certificateId\": \"IH-2026-49QSS58C\",\n    \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n    \"ngoId\": 1,\n    \"opportunityId\": 1,\n    \"verifiedHours\": 12,\n    \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n    \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n    \"status\": \"GENERATED\",\n    \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n    \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n    \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n  }\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate not found\"\n}\n\n ```\n\n### Notes\n\n- Retrieves a single certificate using its database UUID.\n    \n- Returns all certificate details, including:\n    \n    - Certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code location\n        \n    - PDF certificate location\n        \n    - Certificate status\n        \n    - Issue date\n        \n    - Creation and update timestamps\n        \n- If the certificate does not exist, a **404 Not Found** response is returned."
+          },
+          "response": []
+        },
+        {
+          "name": "Download certificate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates/c24e9548-17f5-4668-a99a-58736aed479c/download",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates",
+                "c24e9548-17f5-4668-a99a-58736aed479c",
+                "download"
+              ]
+            },
+            "description": "## Download Certificate\n\nReturns the file path of a generated certificate PDF.\n\n- **URL:** `{{baseUrl}}/certificates/:id/download`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied.)_\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Example Request\n\n``` http\nGET {{baseUrl}}/certificates/c24e9548-17f5-4668-a99a-58736aed479c/download\n\n ```\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\"\n}\n\n ```\n\n### Error Response (500 Internal Server Error)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate Not Found\"\n}\n\n ```\n\n### Notes\n\n- Retrieves the generated PDF file path for a certificate.\n    \n- The certificate must already exist.\n    \n- The returned `pdfUrl` can be used by the frontend to download or display the certificate.\n    \n- If the certificate ID is invalid or does not exist, the endpoint returns an error."
+          },
+          "response": []
+        },
+        {
+          "name": "Verify certificate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates/verify/IH-2026-49QSS58C",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates",
+                "verify",
+                "IH-2026-49QSS58C"
+              ]
+            },
+            "description": "## Verify Certificate\n\nVerifies the authenticity of a certificate using its unique certificate ID. This endpoint is intended to be accessed when a QR code on the certificate is scanned.\n\n- **URL:** `{{baseUrl}}/certificates/verify/:certificateId`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied.)_\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `certificateId` | String | Unique certificate identifier (e.g. `IH-2026-49QSS58C`) |\n\n### Example Request\n\n``` http\nGET {{baseUrl}}/certificates/verify/IH-2026-49QSS58C\n\n ```\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate verified successfully\",\n  \"data\": {\n    \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n    \"certificateId\": \"IH-2026-49QSS58C\",\n    \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n    \"ngoId\": 1,\n    \"opportunityId\": 1,\n    \"verifiedHours\": 12,\n    \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n    \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n    \"status\": \"GENERATED\",\n    \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n    \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n    \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n  }\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Invalid certificate\"\n}\n\n ```\n\n### Notes\n\n- Each generated certificate has a unique `certificateId`.\n    \n- The QR code embedded in the certificate points to this endpoint.\n    \n- A successful response confirms that the certificate is authentic and was issued by ImpactHub.\n    \n- If no certificate matches the supplied `certificateId`, the endpoint returns a **404 Not Found** response."
+          },
+          "response": []
+        },
+        {
+          "name": "Mark as download",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates/c24e9548-17f5-4668-a99a-58736aed479c/download",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates",
+                "c24e9548-17f5-4668-a99a-58736aed479c",
+                "download"
+              ]
+            },
+            "description": "## Mark Certificate as Downloaded\n\nMarks a certificate as downloaded after the volunteer successfully downloads it. The certificate status changes from `GENERATED` to `DOWNLOADED`.\n\n- **Method:** `PATCH`\n    \n- **Endpoint:** `{{baseUrl}}/certificates/:id/download`\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Headers\n\n| Key | Value |\n| --- | --- |\n| Content-Type | application/json |\n\n> **Note:** No request body is required. \n  \n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate downloaded\",\n  \"data\": {\n    \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n    \"certificateId\": \"IH-2026-49QSS58C\",\n    \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n    \"ngoId\": 1,\n    \"opportunityId\": 1,\n    \"verifiedHours\": 12,\n    \"qrCode\": \"src\\\\public\\\\qr\\\\IH-2026-49QSS58C.png\",\n    \"pdfUrl\": \"src\\\\public\\\\certificates\\\\IH-2026-49QSS58C.pdf\",\n    \"status\": \"DOWNLOADED\",\n    \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n    \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n    \"updatedAt\": \"2026-08-02T16:40:35.305Z\"\n  }\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate Not Found\"\n}\n\n ```\n\n### Description\n\nThis endpoint:\n\n- Finds a certificate by its database ID.\n    \n- Updates the certificate status from `GENERATED` to `DOWNLOADED`.\n    \n- Saves the updated record.\n    \n- Returns the updated certificate information."
+          },
+          "response": []
+        },
+        {
+          "name": "Archive certificate",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/certificates/c24e9548-17f5-4668-a99a-58736aed479c",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "certificates",
+                "c24e9548-17f5-4668-a99a-58736aed479c"
+              ]
+            },
+            "description": "## Archive Certificate\n\nArchives a certificate instead of permanently deleting it. The certificate status is updated to `ARCHIVED` while preserving the certificate record in the database.\n\n- **Method:** `DELETE`\n    \n- **Endpoint:** `{{baseUrl}}/certificates/:id`\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Headers\n\n| Key | Value |\n| --- | --- |\n| Content-Type | application/json |\n\n> **Note:** No request body is required. \n  \n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate archived successfully\"\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate Not Found\"\n}\n\n ```\n\n### Description\n\nThis endpoint:\n\n- Finds a certificate by its database ID.\n    \n- Updates the certificate status to `ARCHIVED`.\n    \n- Preserves the certificate record instead of permanently deleting it.\n    \n- Returns a success message after the certificate has been archived."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Impact Profile",
+      "item": [
+        {
+          "name": "Get impact profile",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/impact-profile",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "impact-profile"
+              ]
+            },
+            "description": "# Get Impact Profile\n\nRetrieves the authenticated volunteer's impact profile, including verified hours, completed opportunities, verified NGOs, profile visibility, and shareable link.\n\n---\n\n## Endpoint\n\n``` http\nGET {{baseUrl}}/impact-profile\n\n ```\n\n---\n\n## Description\n\nThis endpoint returns the volunteer's impact profile.\n\nThe profile is automatically created after the volunteer receives their first verified certificate.\n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"296d0456-f99e-4239-bf62-c6cd5e30ee57\",\n        \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n        \"verifiedHours\": 12,\n        \"completedOpportunities\": 1,\n        \"verifiedNgos\": 1,\n        \"shareableLink\": \"Z5EJB9P7S349N0S\",\n        \"isPublic\": false,\n        \"createdAt\": \"2026-08-02T19:02:15.835Z\",\n        \"updatedAt\": \"2026-08-02T19:02:15.835Z\"\n    }\n}\n\n ```\n\n---\n\n## Error Response (404 Not Found)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Impact profile not found\"\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| id | UUID | Impact profile ID |\n| volunteerId | UUID | Volunteer's ID |\n| verifiedHours | Integer | Total verified volunteer hours |\n| completedOpportunities | Integer | Total completed volunteer opportunities |\n| verifiedNgos | Integer | Number of unique NGOs the volunteer has served |\n| shareableLink | String | Public profile sharing link |\n| isPublic | Boolean | Indicates whether the profile is publicly accessible |\n| createdAt | Date | Profile creation timestamp |\n| updatedAt | Date | Last profile update timestamp |\n\n---\n\n## Notes\n\n- This endpoint is intended for authenticated volunteers.\n    \n- The impact profile is automatically created when the volunteer earns their first certificate.\n    \n- The profile is automatically updated whenever additional verified contributions result in new certificates.\n    \n- By default, `isPublic` is set to `false`.\n    \n- The `shareableLink` is automatically generated when the profile is first created."
+          },
+          "response": []
+        },
+        {
+          "name": "Toggle profile sharing",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/impact-profile/share",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "impact-profile",
+                "share"
+              ]
+            },
+            "description": "# Toggle Profile Sharing\n\nEnables or disables public access to the authenticated volunteer's Impact Profile.\n\n---\n\n## Endpoint\n\n``` http\nPATCH {{baseUrl}}/impact-profile/share\n\n ```\n\n---\n\n## Description\n\nThis endpoint toggles the profile's visibility.\n\n- If the profile is currently private (`isPublic = false`), it becomes public.\n    \n- If the profile is currently public (`isPublic = true`), it becomes private.\n    \n\nThis allows volunteers to control whether others can access their profile using the shareable link.\n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Profile sharing updated\",\n    \"data\": {\n        \"id\": \"296d0456-f99e-4239-bf62-c6cd5e30ee57\",\n        \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n        \"verifiedHours\": 12,\n        \"completedOpportunities\": 1,\n        \"verifiedNgos\": 1,\n        \"shareableLink\": \"Z5EJB9P7S349N0S\",\n        \"isPublic\": true,\n        \"createdAt\": \"2026-08-02T19:02:15.835Z\",\n        \"updatedAt\": \"2026-08-02T19:15:10.220Z\"\n    }\n}\n\n ```\n\n> **Note:** The `isPublic` value may be either `true` or `false`, depending on its previous state. \n  \n\n---\n\n## Error Response (404 Not Found)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Impact Profile not found\"\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| id | UUID | Impact Profile ID |\n| volunteerId | UUID | Volunteer's ID |\n| verifiedHours | Integer | Total verified volunteer hours |\n| completedOpportunities | Integer | Total completed volunteer opportunities |\n| verifiedNgos | Integer | Number of unique NGOs served |\n| shareableLink | String | Public profile sharing link |\n| isPublic | Boolean | Indicates whether the profile is publicly accessible |\n| createdAt | Date | Profile creation timestamp |\n| updatedAt | Date | Last profile update timestamp |\n\n---\n\n## Notes\n\n- This endpoint toggles the current sharing status.\n    \n- No request body is required.\n    \n- A public profile can be accessed using its shareable link.\n    \n- Setting `isPublic` to `false` prevents the profile from being viewed through the public share link."
+          },
+          "response": []
+        },
+        {
+          "name": "Regenerate shareable link",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/impact-profile/regenerate-link",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "impact-profile",
+                "regenerate-link"
+              ]
+            },
+            "description": "# Regenerate Shareable Link\n\nGenerates a new public shareable link for the authenticated volunteer's Impact Profile.\n\n---\n\n## Endpoint\n\n``` http\nPATCH {{baseUrl}}/impact-profile/regenerate-link\n\n ```\n\n---\n\n## Description\n\nThis endpoint generates a new unique shareable link for the volunteer's Impact Profile.\n\nOnce a new link is generated, the previous shareable link becomes invalid.\n\n---\n\n## Request Body\n\nNo request body is required.\n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"296d0456-f99e-4239-bf62-c6cd5e30ee57\",\n        \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n        \"verifiedHours\": 12,\n        \"completedOpportunities\": 1,\n        \"verifiedNgos\": 1,\n        \"shareableLink\": \"7JRDNP4V4NBLC28\",\n        \"isPublic\": true,\n        \"createdAt\": \"2026-08-02T19:02:15.835Z\",\n        \"updatedAt\": \"2026-08-02T19:12:32.709Z\"\n    },\n    \"message\": \"Shareable Link regenerated\"\n}\n\n ```\n\n---\n\n## Error Response (404 Not Found)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Impact profile not found\"\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| id | UUID | Impact Profile ID |\n| volunteerId | UUID | ID of the volunteer who owns the profile |\n| verifiedHours | Integer | Total verified volunteer hours |\n| completedOpportunities | Integer | Total completed volunteer opportunities |\n| verifiedNgos | Integer | Number of unique NGOs the volunteer has served |\n| shareableLink | String | Newly generated public profile link |\n| isPublic | Boolean | Indicates whether the profile is publicly accessible |\n| createdAt | DateTime | Date and time the profile was created |\n| updatedAt | DateTime | Date and time the profile was last updated |\n\n---\n\n## Notes\n\n- No request body is required.\n    \n- A new unique shareable link is generated every time this endpoint is called.\n    \n- The previously generated link becomes invalid immediately.\n    \n- Regenerating the link does **not** change the profile's sharing status (`isPublic`).\n    \n- The volunteer's impact statistics remain unchanged."
+          },
+          "response": []
+        },
+        {
+          "name": "Get profile using link",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/impact-profile/share/7JRDNP4V4NBLC28",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "impact-profile",
+                "share",
+                "7JRDNP4V4NBLC28"
+              ]
+            },
+            "description": "# Get Public Impact Profile\n\nRetrieves a volunteer's public Impact Profile using their shareable link.\n\n---\n\n## Endpoint\n\n``` http\nGET {{baseUrl}}/impact-profile/share/:shareableLink\n\n ```\n\n### Example\n\n``` http\nGET {{baseUrl}}/impact-profile/share/7JRDNP4V4NBLC28\n\n ```\n\n---\n\n## Description\n\nThis endpoint allows anyone with a valid public shareable link to view a volunteer's Impact Profile.\n\nThe profile is only returned if:\n\n- The shareable link exists.\n    \n- The volunteer has enabled public profile sharing (`isPublic = true`).\n    \n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"data\": {\n        \"id\": \"296d0456-f99e-4239-bf62-c6cd5e30ee57\",\n        \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n        \"verifiedHours\": 12,\n        \"completedOpportunities\": 1,\n        \"verifiedNgos\": 1,\n        \"shareableLink\": \"7JRDNP4V4NBLC28\",\n        \"isPublic\": true,\n        \"createdAt\": \"2026-08-02T19:02:15.835Z\",\n        \"updatedAt\": \"2026-08-02T19:12:32.709Z\"\n    }\n}\n\n ```\n\n---\n\n## Error Response (404 Not Found)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Public profile not found\"\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| id | UUID | Impact Profile ID |\n| volunteerId | UUID | ID of the volunteer who owns the profile |\n| verifiedHours | Integer | Total verified volunteer hours |\n| completedOpportunities | Integer | Total completed volunteer opportunities |\n| verifiedNgos | Integer | Number of unique NGOs the volunteer has served |\n| shareableLink | String | Public profile share link |\n| isPublic | Boolean | Indicates whether the profile is publicly accessible |\n| createdAt | DateTime | Date and time the profile was created |\n| updatedAt | DateTime | Date and time the profile was last updated |\n\n---\n\n## Notes\n\n- This endpoint does **not** require authentication.\n    \n- Only profiles with `isPublic` set to `true` can be accessed.\n    \n- If the shareable link is invalid or the profile has been made private, the API returns a **404 Not Found** response.\n    \n- Volunteers can generate a new shareable link at any time, which immediately invalidates the previous one."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get notification",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{volunteerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications"
+              ]
+            },
+            "description": "# Get User Notifications\n\nRetrieves all notifications belonging to the authenticated user. Notifications are returned from newest to oldest.\n\n- **Method:** `GET`\n    \n- **Endpoint:** `{{baseUrl}}/notifications`\n    \n\n### Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer |\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"count\": 1,\n  \"data\": [\n    {\n      \"id\": \"7deabd9c-d995-44db-b9bc-cdbc1ca01d75\",\n      \"userId\": \"09d86b68-d546-41e3-9e0c-33cc70395f55\",\n      \"title\": \"Certificate Available\",\n      \"message\": \"Congratulations! Your certificate has been generated and is now available for download\",\n      \"type\": \"CERTIFICATE_AVAILABLE\",\n      \"isRead\": false,\n      \"createdAt\": \"2026-08-02T16:28:29.747Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.747Z\"\n    }\n  ]\n}\n\n ```\n\n### Error Response (401 Unauthorized)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Unauthorized\"\n}\n\n ```\n\n### Description\n\nThis endpoint:\n\n- Retrieves all notifications for the authenticated user.\n    \n- Returns notifications sorted from newest to oldest.\n    \n- Includes the notification title, message, type, read status, and timestamps.\n    \n- Returns the total number of notifications in the `count` field."
+          },
+          "response": []
+        },
+        {
+          "name": "Mark notification as Read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{volunteerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/7deabd9c-d995-44db-b9bc-cdbc1ca01d75/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "7deabd9c-d995-44db-b9bc-cdbc1ca01d75",
+                "read"
+              ]
+            },
+            "description": "# Mark Notification as Read\n\nMarks a specific notification as read.\n\n### Endpoint\n\n``` http\nPATCH {{baseUrl}}/notifications/:id/read\n\n ```\n\n### Example Request\n\n``` http\nPATCH {{baseUrl}}/notifications/7deabd9c-d995-44db-b9bc-cdbc1ca01d75/read\n\n ```\n\n### Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{token}} |\n\n### Path Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| id | UUID | The notification ID |\n\n### Success Response (200)\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Notification mark as read\",\n    \"data\": {\n        \"id\": \"7deabd9c-d995-44db-b9bc-cdbc1ca01d75\",\n        \"userId\": \"09d86b68-d546-41e3-9e0c-33cc70395f55\",\n        \"title\": \"Certificate Available\",\n        \"message\": \"Congratulations! Your certificate has been generated and is now available for download\",\n        \"type\": \"CERTIFICATE_AVAILABLE\",\n        \"isRead\": true,\n        \"createdAt\": \"2026-08-02T16:28:29.747Z\",\n        \"updatedAt\": \"2026-08-02T16:56:28.035Z\"\n    }\n}\n\n ```\n\n### Response Fields\n\n| Field | Description |\n| --- | --- |\n| success | Indicates whether the request was successful |\n| message | Operation status message |\n| data | Updated notification object |\n| data.id | Notification UUID |\n| data.userId | User who owns the notification |\n| data.title | Notification title |\n| data.message | Notification content |\n| data.type | Notification type |\n| data.isRead | Read status (`true`) |\n| data.createdAt | Notification creation timestamp |\n| data.updatedAt | Timestamp of the update |\n\n### Error Responses\n\n#### Notification Not Found (404)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Notification not found\"\n}\n\n ```\n\n#### Internal Server Error (500)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Internal Server Error\"\n}\n\n ```"
+          },
+          "response": []
+        },
+        {
+          "name": "Mark all notifications as read",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{volunteerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/read-all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "read-all"
+              ]
+            },
+            "description": "# Mark All Notifications as Read\n\nMarks **all notifications** belonging to the authenticated user as read.\n\n---\n\n## Endpoint\n\n**PATCH** `{{baseUrl}}/notifications/read-all`\n\n---\n\n## Authentication\n\n**Required**\n\nInclude a valid Bearer Token.\n\n``` http\nAuthorization: Bearer <your_access_token>\n\n ```\n\n---\n\n## Request Body\n\nNo request body is required.\n\n---\n\n## Successful Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"All notifications marked as read\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 401 Unauthorized\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Unauthorized\"\n}\n\n ```\n\n---\n\n### 500 Internal Server Error\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Internal Server Error\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Marks every notification belonging to the authenticated user as **read**.\n    \n- Notifications already marked as read remain unchanged.\n    \n- This endpoint does not delete any notifications."
+          },
+          "response": []
+        },
+        {
+          "name": "Delete notifications",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{volunteerToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/notifications/7deabd9c-d995-44db-b9bc-cdbc1ca01d75",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notifications",
+                "7deabd9c-d995-44db-b9bc-cdbc1ca01d75"
+              ]
+            },
+            "description": "# Delete Notification\n\nDeletes a specific notification permanently.\n\n---\n\n## Endpoint\n\n**DELETE** `{{baseUrl}}/notifications/:id`\n\n---\n\n## Authentication\n\n**Required**\n\nInclude a valid Bearer Token.\n\n``` http\nAuthorization: Bearer <your_access_token>\n\n ```\n\n---\n\n## Path Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | The ID of the notification to delete |\n\n---\n\n## Example Request\n\n``` http\nDELETE {{baseUrl}}/notifications/7deabd9c-d995-44db-b9bc-cdbc1ca01d75\n\n ```\n\n---\n\n## Successful Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Notification deleted successfully\"\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 404 Not Found\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Notification not found\"\n}\n\n ```\n\n---\n\n### 401 Unauthorized\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Unauthorized\"\n}\n\n ```\n\n---\n\n### 500 Internal Server Error\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Internal Server Error\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Permanently removes the specified notification from the database.\n    \n- This action cannot be undone.\n    \n- If the notification ID does not exist, a **404 Not Found** response is returned."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "item": [
+        {
+          "name": "Get dashboard statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/dashboards",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboards"
+              ]
+            },
+            "description": "# Get Dashboard Statistics\n\nRetrieves key platform statistics for display on the administrator dashboard.\n\n---\n\n## Endpoint\n\n``` http\nGET {{baseUrl}}/dashboards\n\n ```\n\n---\n\n## Description\n\nThis endpoint returns a summary of the platform's current statistics, including:\n\n- Total registered volunteers\n    \n- Total registered NGOs\n    \n- Total volunteer opportunities\n    \n- Total certificates generated\n    \n- Total verified volunteer hours\n    \n\nThese statistics are generated dynamically from the database.\n\n---\n\n## Request Body\n\nNo request body is required.\n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Dashboard statistics generated\",\n    \"data\": {\n        \"totalVolunteer\": 1,\n        \"totalNGO\": 1,\n        \"totalOpportunities\": 1,\n        \"totalCertificate\": 1,\n        \"verifiedHours\": 12\n    }\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| totalVolunteer | Integer | Total number of registered volunteers |\n| totalNGO | Integer | Total number of registered NGOs |\n| totalOpportunities | Integer | Total number of volunteer opportunities |\n| totalCertificate | Integer | Total number of certificates generated |\n| verifiedHours | Integer | Total verified volunteer hours across all volunteers |\n\n---\n\n## Error Response (500 Internal Server Error)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Internal Server Error\"\n}\n\n ```\n\n---\n\n## Notes\n\n- This endpoint is intended for the platform administrator dashboard.\n    \n- All statistics are calculated in real time from the database.\n    \n- No request body is required.\n    \n- The endpoint does not modify any data.\n    \n- The returned values automatically reflect newly created volunteers, NGOs, opportunities, certificates, and verified contributions."
+          },
+          "response": []
+        },
+        {
+          "name": "Get report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports"
+              ]
+            },
+            "description": "# Get Platform Report\n\nRetrieves a comprehensive platform report containing dashboard statistics and additional analytics for administrators.\n\n---\n\n## Endpoint\n\n``` http\nGET {{baseUrl}}/reports\n\n ```\n\n---\n\n## Description\n\nThis endpoint generates a platform-wide report by aggregating data from volunteers, NGOs, opportunities, contributions, and certificates.\n\nIn addition to the dashboard statistics, it includes:\n\n- Number of active volunteer opportunities\n    \n- Number of verified volunteer contributions\n    \n\nThe report is generated dynamically each time the endpoint is called.\n\n---\n\n## Request Body\n\nNo request body is required.\n\n---\n\n## Success Response (200 OK)\n\n``` json\n{\n    \"success\": true,\n    \"message\": \"Platform Report generated\",\n    \"data\": {\n        \"totalVolunteer\": 1,\n        \"totalNGO\": 1,\n        \"totalOpportunities\": 1,\n        \"totalCertificate\": 1,\n        \"verifiedHours\": 12,\n        \"activeOpportunities\": 0,\n        \"completedContributions\": 1\n    }\n}\n\n ```\n\n---\n\n## Response Fields\n\n| Field | Type | Description |\n| --- | --- | --- |\n| totalVolunteer | Integer | Total number of registered volunteers |\n| totalNGO | Integer | Total number of registered NGOs |\n| totalOpportunities | Integer | Total number of volunteer opportunities |\n| totalCertificate | Integer | Total number of certificates generated |\n| verifiedHours | Integer | Total verified volunteer hours across all volunteers |\n| activeOpportunities | Integer | Total number of opportunities currently marked as **open** |\n| completedContributions | Integer | Total number of verified volunteer contributions |\n\n---\n\n## Error Response (500 Internal Server Error)\n\n``` json\n{\n    \"success\": false,\n    \"message\": \"Internal Server Error\"\n}\n\n ```\n\n---\n\n## Notes\n\n- This endpoint is intended for platform administrators.\n    \n- The report is generated in real time from the database.\n    \n- No request body is required.\n    \n- The endpoint is read-only and does not modify any data.\n    \n- Dashboard statistics are included together with additional platform analytics in a single response."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "NGO",
+      "item": [
+        {
+          "name": "Register NGO",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{ngoadminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"red Future Foundation\",\r\n  \"registrationNumber\": \"RC123456\",\r\n  \"contactPerson\": \"Jane Doe\",\r\n  \"email\": \"jane1@greenfuture.org\",\r\n  \"phone\": \"08012346678\",\r\n  \"address\": \"12 Unity Road, Lagos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ngos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ngos"
+              ]
+            },
+            "description": "# Register NGO\n\nCreates a new NGO profile for the authenticated NGO Administrator.\n\n> Authentication Required: Yes (Bearer Token) \n  \n> Authorization Required: NGO-admin \n  \n\n---\n\n## Endpoint\n\n**POST** `{{baseUrl}}/ngos`\n\n---\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{ngoAdminToken}} |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n  \"name\": \"Red Future Foundation\",\n  \"registrationNumber\": \"RC123456\",\n  \"contactPerson\": \"Jane Doe\",\n  \"email\": \"jane1@greenfuture.org\",\n  \"phone\": \"08012346678\",\n  \"address\": \"12 Unity Road, Lagos\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**201 Created**\n\n``` json\n{\n  \"success\": true,\n  \"ngo\": {\n    \"verificationStatus\": \"pending\",\n    \"id\": 1,\n    \"name\": \"Red Future Foundation\",\n    \"registrationNumber\": \"RC123456\",\n    \"contactPerson\": \"Jane Doe\",\n    \"email\": \"jane1@greenfuture.org\",\n    \"phone\": \"08012346678\",\n    \"address\": \"12 Unity Road, Lagos\",\n    \"userId\": \"4428bca5-fdce-4669-be1c-5d21ecdf238f\",\n    \"verificationDocuments\": null,\n    \"createdAt\": \"2026-08-02T03:32:00.591Z\",\n    \"updatedAt\": \"2026-08-02T03:32:00.591Z\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 400 Bad Request\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"This user already has an NGO profile\"\n}\n\n ```\n\n### 401 Unauthorized\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, Not authorized to access this route\"\n}\n\n ```\n\n### 403 Forbidden\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, role volunteer is not authorized to access this route\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Each NGO administrator can register only one NGO profile.\n    \n- Every newly created NGO starts with a `pending` verification status.\n    \n- Only users with the `NGO-admin` role can access this endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "verify NGO",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{platformadminTokin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_17z3}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ngoId\" :1, \"decision\": \"approved\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ngos/verify",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ngos",
+                "verify"
+              ]
+            },
+            "description": "# Verify NGO\n\nApproves or rejects an NGO registration.\n\n> Authentication Required: Yes (Bearer Token) \n  \n> Authorization Required: platform-admin \n  \n\n---\n\n## Endpoint\n\n**POST** `{{baseUrl}}/ngos/verify`\n\n---\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{platformAdminToken}} |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\nApprove an NGO:\n\n``` json\n{\n  \"ngoId\": 1,\n  \"decision\": \"approved\"\n}\n\n ```\n\nReject an NGO:\n\n``` json\n{\n  \"ngoId\": 1,\n  \"decision\": \"rejected\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**200 OK**\n\n``` json\n{\n  \"success\": true,\n  \"ngo\": {\n    \"id\": 1,\n    \"name\": \"Red Future Foundation\",\n    \"registrationNumber\": \"RC123456\",\n    \"contactPerson\": \"Jane Doe\",\n    \"email\": \"jane1@greenfuture.org\",\n    \"phone\": \"08099887766\",\n    \"address\": \"12 Unity Road, Lagos\",\n    \"verificationStatus\": \"approved\",\n    \"userId\": \"4428bca5-fdce-4669-be1c-5d21ecdf238f\",\n    \"verificationDocuments\": null,\n    \"createdAt\": \"2026-08-02T03:32:00.591Z\",\n    \"updatedAt\": \"2026-08-02T04:00:00.000Z\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 400 Bad Request\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"NGO not found\"\n}\n\n ```\n\n---\n\n### 401 Unauthorized\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, Not authorized to access this route\"\n}\n\n ```\n\n---\n\n### 403 Forbidden\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, role NGO-admin is not authorized to access this route\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Only Platform Administrators can approve or reject NGO registrations.\n    \n- The `decision` field accepts either:\n    \n    - `\"approved\"`\n        \n    - `\"rejected\"`\n        \n- The NGO's `verificationStatus` is updated accordingly."
+          },
+          "response": []
+        },
+        {
+          "name": "Get my NGO",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/ngo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "ngo"
+              ]
+            },
+            "description": "# Get My NGO\n\nRetrieves the NGO profile belonging to the authenticated NGO Administrator.\n\n> Authentication Required: Yes (Bearer Token) \n  \n> Authorization Required: NGO-admin \n  \n\n---\n\n## Endpoint\n\n**GET** `{{baseUrl}}/ngos`\n\n---\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{ngoAdminToken}} |\n\n---\n\n## Request Body\n\nNone\n\n---\n\n## Success Response\n\n**200 OK**\n\n``` json\n{\n  \"success\": true,\n  \"ngo\": {\n    \"id\": 1,\n    \"name\": \"Red Future Foundation\",\n    \"registrationNumber\": \"RC123456\",\n    \"contactPerson\": \"Jane Doe\",\n    \"email\": \"jane1@greenfuture.org\",\n    \"phone\": \"08012346678\",\n    \"address\": \"12 Unity Road, Lagos\",\n    \"verificationStatus\": \"pending\",\n    \"userId\": \"4428bca5-fdce-4669-be1c-5d21ecdf238f\",\n    \"verificationDocuments\": null,\n    \"createdAt\": \"2026-08-02T03:32:00.591Z\",\n    \"updatedAt\": \"2026-08-02T03:32:00.591Z\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 401 Unauthorized\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, Not authorized to access this route\"\n}\n\n ```\n\n### 403 Forbidden\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, role volunteer is not authorized to access this route\"\n}\n\n ```\n\n### 404 Not Found\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"NGO profile not found\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Returns the NGO profile associated with the currently authenticated NGO administrator.\n    \n- Requires a valid JWT Bearer token.\n    \n- Only NGO administrators can access this endpoint."
+          },
+          "response": []
+        },
+        {
+          "name": "update ngo",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{ngoadminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"phone\": \"08099887766\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/ngos",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "ngos"
+              ]
+            },
+            "description": "# Update NGO\n\nUpdates the authenticated NGO Administrator's NGO profile.\n\n> Authentication Required: Yes (Bearer Token) \n  \n> Authorization Required: NGO-admin \n  \n\n---\n\n## Endpoint\n\n**PUT** `{{baseUrl}}/ngos`\n\n---\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{ngoAdminToken}} |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\nYou may update one or more fields.\n\nExample:\n\n``` json\n{\n  \"phone\": \"08099887766\"\n}\n\n ```\n\nYou can also update multiple fields:\n\n``` json\n{\n  \"contactPerson\": \"John Doe\",\n  \"phone\": \"08099887766\",\n  \"address\": \"45 Freedom Way, Abuja\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**200 OK**\n\n``` json\n{\n  \"success\": true,\n  \"ngo\": {\n    \"id\": 1,\n    \"name\": \"Red Future Foundation\",\n    \"registrationNumber\": \"RC123456\",\n    \"contactPerson\": \"Jane Doe\",\n    \"email\": \"jane1@greenfuture.org\",\n    \"phone\": \"08099887766\",\n    \"address\": \"12 Unity Road, Lagos\",\n    \"verificationStatus\": \"pending\",\n    \"userId\": \"4428bca5-fdce-4669-be1c-5d21ecdf238f\",\n    \"verificationDocuments\": null,\n    \"createdAt\": \"2026-08-02T03:32:00.591Z\",\n    \"updatedAt\": \"2026-08-02T03:40:00.000Z\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 400 Bad Request\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"NGO profile not found\"\n}\n\n ```\n\n### 401 Unauthorized\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, Not authorized to access this route\"\n}\n\n ```\n\n### 403 Forbidden\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, role volunteer is not authorized to access this route\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Only the authenticated NGO administrator can update their NGO profile.\n    \n- Any combination of editable fields may be provided.\n    \n- Fields omitted from the request remain unchanged."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Opportunity",
+      "item": [
+        {
+          "name": "Create opportunity",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{ngoadminToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_11ug}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Community  dump Cleanup Volunteer\",\r\n  \"description\": \"Help clean up the community refuse dump\",\r\n  \"category\": \"Environment\",\r\n  \"location\": \"Abuja\",\r\n  \"date\": \"2026-08-15\",\r\n  \"capacity\": 20,\r\n  \"applicationDeadline\": \"2026-08-01\",\r\n  \"requiredSkills\": [\"Teamwork\"],\r\n  \"duration\": \"1 Day\",\r\n  \"timeCommitment\": \"6 hrs\",\r\n  \"compensation\": \"Unpaid\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/opportunities",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "opportunities"
+              ]
+            },
+            "description": "# Create Opportunity\n\nCreates a new volunteer opportunity under the authenticated NGO Administrator's verified NGO.\n\n> Authentication Required: Yes (Bearer Token) \n  \n> Authorization Required: NGO-admin \n  \n\n---\n\n## Endpoint\n\n**POST** `{{baseUrl}}/opportunities`\n\n---\n\n## Headers\n\n| Key | Value |\n| --- | --- |\n| Authorization | Bearer {{ngoAdminToken}} |\n| Content-Type | application/json |\n\n---\n\n## Request Body\n\n``` json\n{\n  \"title\": \"Community Dump Cleanup Volunteer\",\n  \"description\": \"Help clean up the community refuse dump\",\n  \"category\": \"Environment\",\n  \"location\": \"Abuja\",\n  \"date\": \"2026-08-15\",\n  \"capacity\": 20,\n  \"applicationDeadline\": \"2026-08-01\",\n  \"requiredSkills\": [\"Teamwork\"],\n  \"duration\": \"1 Day\",\n  \"timeCommitment\": \"6 hrs\",\n  \"compensation\": \"Unpaid\"\n}\n\n ```\n\n---\n\n## Success Response\n\n**201 Created**\n\n``` json\n{\n  \"success\": true,\n  \"opportunity\": {\n    \"...\": \"Opportunity object\"\n  }\n}\n\n ```\n\n---\n\n## Error Responses\n\n### 400 Bad Request\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"You must have an NGO profile first\"\n}\n\n ```\n\n``` json\n{\n  \"success\": false,\n  \"error\": \"Your NGO must be verified before creating opportunities\"\n}\n\n ```\n\n### 401 Unauthorized\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, Not authorized to access this route\"\n}\n\n ```\n\n### 403 Forbidden\n\n``` json\n{\n  \"status\": \"failed\",\n  \"message\": \"Error, role volunteer is not authorized to access this route\"\n}\n\n ```\n\n---\n\n## Notes\n\n- Only authenticated NGO administrators can create opportunities.\n    \n- The authenticated NGO must be verified before creating opportunities.\n    \n- The opportunity is automatically linked to the NGO owned by the logged-in user."
+          },
+          "response": []
+        },
+        {
+          "name": "Browse opportunities",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/opportunities",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get one opportunity",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/opportunities/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update opportunity",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"capacity\": 20\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/opportunities/6",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Publish opportunity",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/opportunities/6/publish",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities",
+                "6",
+                "publish"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Close opportunity",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/opportunities/6/close",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities",
+                "6",
+                "close"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete opportunity",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/opportunities/7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create opportunity for delete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Community hall Cleanup Volunteer\",\r\n  \"description\": \"Help clean up the local hall\",\r\n  \"category\": \"Environment\",\r\n  \"location\": \"Lagos\",\r\n  \"date\": \"2026-08-15\",\r\n  \"capacity\": 40,\r\n  \"applicationDeadline\": \"2026-08-01\",\r\n  \"requiredSkills\": [\"Teamwork\"],\r\n  \"duration\": \"1 Day\",\r\n  \"timeCommitment\": \"4 hrs\",\r\n  \"compensation\": \"Unpaid\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/opportunities",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create opportunity for application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Community venue Cleanup Volunteer\",\r\n  \"description\": \"Help clean up the local venue\",\r\n  \"category\": \"Environment\",\r\n  \"location\": \"Lagos\",\r\n  \"date\": \"2026-08-15\",\r\n  \"capacity\": 30,\r\n  \"applicationDeadline\": \"2026-08-01\",\r\n  \"requiredSkills\": [\"Teamwork\"],\r\n  \"duration\": \"1 Day\",\r\n  \"timeCommitment\": \"4 hrs\",\r\n  \"compensation\": \"Unpaid\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/opportunities",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create opportunity for application withdrawal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_0lrk}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Community Cleanup Volunteer work\",\r\n  \"description\": \"Help clean up the community park\",\r\n  \"category\": \"Environment\",\r\n  \"location\": \"Lagos\",\r\n  \"date\": \"2026-08-15\",\r\n  \"capacity\": 10,\r\n  \"applicationDeadline\": \"2026-08-01\",\r\n  \"requiredSkills\": [\"Teamwork\"],\r\n  \"duration\": \"1 Day\",\r\n  \"timeCommitment\": \"4 hrs\",\r\n  \"compensation\": \"Unpaid\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/opportunities",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "opportunities"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Application",
+      "item": [
+        {
+          "name": "Submit application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0ntw}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"opportunityId\":8\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/applications",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List applications",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_0lrk}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/applications",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Accept applications",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_0lrk}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/applications/2/accept",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications",
+                "2",
+                "accept"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{bearer_token_0lrk}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/applications/2/reject",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications",
+                "2",
+                "reject"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "submit application for testing withdrawal",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0ntw}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"opportunityId\":9\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/applications",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Withdraw application",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0ntw}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/applications/3/withdraw",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "applications",
+                "3",
+                "withdraw"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Contribution",
+      "item": [
+        {
+          "name": "Log hours",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{json_web_token_0ntw}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"opportunityId\":8,\r\n    \"hoursLogged\": 4.5,\r\n    \"evidence\": \"https://example.com/proof.jpg\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/contributions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "contributions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List contributions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/contributions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "contributions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "verify contribution",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/contributions/4/verify",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "contributions",
+                "4",
+                "verify"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "reject contribution",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{supabase_service_role_api_key_11ug}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5000/contributions/4/reject",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "contributions",
+                "4",
+                "reject"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

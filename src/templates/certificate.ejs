@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin:20px;
+            padding:25px;
+            font-family:Arial, sans-serif;
+            border:10px solid #0B5ED7;
+            box-sizing: border-box;
+            text-align:center;
+            background-color: #e6eaf1;
+        }
+
+        .logo{
+            width:100px;
+        }
+
+        .title{
+            font-size:38px;
+            font-weight:bold;
+            color:#0B5ED7;
+        }
+
+        .name{
+            font-size:34px;
+            font-weight:bold;
+            margin:30px;
+        }
+
+        .info{
+            font-size:18px;
+            margin:10px;
+        }
+
+        .footer{
+            display:flex;
+            justify-content:space-between;
+            margin-top:60px;
+        }
+
+        .qr{
+            width:120px;
+        }
+
+        .signature{
+            text-align:center;
+        }
+
+        .signature img{
+            width:160px;
+        }
+    </style>
+</head>
+<body>
+    <img src="data:image/png;base64,<%= logo %>" class="logo">
+    <h1 class="title">
+        Certificate of Volunteer Service
+    </h1>
+
+    <p>
+        This certifies that
+    </p>
+
+    <div class="name">
+        <%= volunteerName %>
+    </div>
+
+    <p class="info">
+        completed
+        <strong><%= opportunityTitle %></strong>
+    </p>
+
+    <p class="info">
+        Organized by
+        <strong><%= ngoName %></strong>
+    </p>
+
+    <p class="info">
+        Completed Hours:
+        <%= verifiedHours %>
+    </p>
+
+    <p class="info">
+        Certificate ID:
+        <%= certificateId %>
+    </p>
+
+    <div class="footer">
+        <img src="data:image/png;base64,<%= qrCode %>" class="qr">
+        <div class="signature">
+            <img src="data:image/png;base64,<%= signature %>">
+            <p>
+            ImpactHub
+            </p>
+        </div>
+    </div>
+</body>
+</html>

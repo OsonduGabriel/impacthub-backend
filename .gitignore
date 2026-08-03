@@ -4,4 +4,9 @@ jspm_packages/
 
 # dotenv environment variable files
 .env
-!.env.example
+
+# files
+src/public/certificates/
+src/public/qr/
+
+
