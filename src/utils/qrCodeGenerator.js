@@ -10,7 +10,7 @@ export const generateQRCode = async(certificateId) => {
             fs.mkdirSync(qrFolder, { recursive: true });
         }
 
-        const verificationUrl = `http://localhost:3000/api/v1/certificates/verify/${certificateId}`;
+        const verificationUrl = `${process.env.BASE_URL}/api/v1/certificates/verify/${certificateId}`;
 
         const qrPath = path.join(qrFolder, `${certificateId}.png`);
 

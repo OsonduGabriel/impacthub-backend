@@ -21,13 +21,13 @@ export const protect = async (req, res, next) => {
     }
 
     try {
-      // const isCancelled = await redisClient.get(`blackList_${token}`);
-      // if (isCancelled) {
-      //   return res.status(401).json({
-      //     status: "failed",
-      //     message: "Error, Invalid Token please Login again",
-      //   });
-      // }
+      const isCancelled = await redisClient.get(`blackList_${token}`);
+      if (isCancelled) {
+        return res.status(401).json({
+          status: "failed",
+          message: "Error, Invalid Token please Login again",
+        });
+      }
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -82,12 +82,12 @@ export const closeProtect = async (req, res, next) => {
     try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      // const currentTime = Math.floor(Date.now() / 1000);
-      // const ttl = decoded.exp - currentTime;
+      const currentTime = Math.floor(Date.now() / 1000);
+      const ttl = decoded.exp - currentTime;
 
-      // if (ttl > 0) {
-      //   await redisClient.setEx(`blackList_${token}`, ttl, "revoked");
-      // }
+      if (ttl > 0) {
+        await redisClient.setEx(`blackList_${token}`, ttl, "revoked");
+      }
 
       const user = await User.findByPk(decoded.id);
 

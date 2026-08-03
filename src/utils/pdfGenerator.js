@@ -28,8 +28,9 @@ export const generatePDF = async (data) => {
     // Render the HTML
     const html = await ejs.renderFile(templatePath, {
         ...data,
-        logo: path.resolve("src/public/images/impacthub-logo.png"),
-        signature: path.resolve("src/public/images/signature.png")
+        logo: `file://${path.resolve("src/public/images/impacthub-logo.png")}`,
+        signature: `file://${path.resolve("src/public/images/signature.png")}`,
+        qrCode: `file://${path.resolve("src/public" + data.qrCode)}`
     });
 
     // Launch Chrome
