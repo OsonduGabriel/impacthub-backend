@@ -19,8 +19,8 @@ app.use("/api/v1", routes)
 
 
 //test route
-app.get("/", (req, res) => {
-  res.status(200).json({success: true, message: "Welcome to ImpactHub API"})
+app.get("/api/v1", (req, res) => {
+  res.status(200).json({success: true, message: "Welcome to ImpactHub API V1", documentation: "https://documenter.getpostman.com/view/54550547/2sBY4TqyCT"})
 })
 
 
