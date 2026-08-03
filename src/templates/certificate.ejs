@@ -6,11 +6,13 @@
     <title>Document</title>
     <style>
         body{
-            margin:40px;
-            padding:50px;
-            font-family:Arial;
-            border:12px solid #0B5ED7;
+            margin:20px;
+            padding:25px;
+            font-family:Arial, sans-serif;
+            border:10px solid #0B5ED7;
+            box-sizing: border-box;
             text-align:center;
+            background-color: #e6eaf1;
         }
 
         .logo{
@@ -54,7 +56,7 @@
     </style>
 </head>
 <body>
-    <img src="<%= logo %>" class="logo">
+    <img src="data:image/png;base64,<%= logo %>" class="logo">
     <h1 class="title">
         Certificate of Volunteer Service
     </h1>
@@ -88,9 +90,9 @@
     </p>
 
     <div class="footer">
-        <img src="<%= qrCode %>" class="qr">
+        <img src="data:image/png;base64,<%= qrCode %>" class="qr">
         <div class="signature">
-            <img src="<%= signature %>">
+            <img src="data:image/png;base64,<%= signature %>">
             <p>
             ImpactHub
             </p>

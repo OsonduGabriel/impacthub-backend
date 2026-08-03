@@ -25,12 +25,25 @@ export const generatePDF = async (data) => {
         "certificate.ejs"
     );
 
+    //Read images as Base64 FIRST
+    const logo = fs.readFileSync(
+        path.resolve("src/public/images/impacthub-logo.png")
+    ).toString("base64");
+
+    const signature = fs.readFileSync(
+        path.resolve("src/public/images/signature.png")
+    ).toString("base64");
+
+    const qr = fs.readFileSync(
+        path.resolve("src/public" + data.qrCode)
+    ).toString("base64");
+
     // Render the HTML
     const html = await ejs.renderFile(templatePath, {
         ...data,
-        logo: `file://${path.resolve("src/public/images/impacthub-logo.png")}`,
-        signature: `file://${path.resolve("src/public/images/signature.png")}`,
-        qrCode: `file://${path.resolve("src/public" + data.qrCode)}`
+        logo,
+        signature,
+        qrCode: qr
     });
 
     // Launch Chrome
@@ -57,7 +70,13 @@ export const generatePDF = async (data) => {
         path: pdfPath,
         format: "A4",
         landscape: true,
-        printBackground: true
+        printBackground: true,
+        margin: {
+            top: "0",
+            right: "0",
+            bottom: "0",
+            left: "0"
+        }
     });
 
     await browser.close();
