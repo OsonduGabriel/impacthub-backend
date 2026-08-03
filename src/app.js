@@ -1,12 +1,19 @@
 import express from "express"
 import sequelize from "./config/database.js";
 import dotenv from "dotenv"
+import cors from "cors"
 import routes from "./routes/index.js"
 
 //import environment variables
 dotenv.config()
 
 const app = express()
+
+//cross origin resource sharing
+app.use(cors({
+  origin: ["http://localhost:5173", "https://impacthub-frontend.vercel.app"],
+  credentials: true
+}))
 
 //middleware so we can parse json request
 app.use(express.json())
