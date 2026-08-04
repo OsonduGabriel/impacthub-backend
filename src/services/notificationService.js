@@ -1,4 +1,4 @@
-import Notification from "../model/notificationModel.js";
+import Notification from "../model/notificationModel";
 import { Where } from "sequelize/lib/utils";
 
 //create a new notification - called internally by other modules(auth, contribution, certificate, ngo)

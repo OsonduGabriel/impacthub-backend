@@ -3,6 +3,7 @@ import Opportunity from './opportunityModel.js';
 import Application from './applicationModel.js';
 import Contribution from './contributionModel.js';
 import User from './userModel.js';
+import Certification from "./certificationModel.js"
 import Volunteer from "./volunteerModel.js";
 import Certificate from "./certificateModel.js";
 import Notification from "./notificationModel.js";
@@ -42,5 +43,20 @@ Notification.belongsTo(User, {foreignKey: "userId"});
 // Volunteer ↔ Impact Profile
 Volunteer.hasOne(ImpactProfile, {foreignKey: "volunteerId", onDelete: "CASCADE"});
 ImpactProfile.belongsTo(Volunteer, {foreignKey: "volunteerId"});
+
+User.hasOne(Volunteer, {
+  foreignKey: "userId",
+  onDelete: "CASCADE",
+});
+
+Volunteer.belongsTo(User, { foreignKey: "userId" });
+
+Volunteer.hasMany(Certification, {
+  as: "certifications",
+  foreignKey: "volId",
+  onDelete: "CASCADE",
+  hooks: true,
+});
+Certification.belongsTo(Volunteer, { foreignKey: "volId" });
 
 export { NGO, Opportunity, Application, Contribution, Volunteer, Certificate, Notification, ImpactProfile};

@@ -3,6 +3,11 @@ import sequelize from "./config/database.js";
 import dotenv from "dotenv"
 import cors from "cors"
 import routes from "./routes/index.js"
+import errorHandler, {
+  serverErrorHandler,
+} from "./middleware/errorMiddleware.js";
+import path from "path";
+import uploadProfileFiles from "./config/multer.js";
 
 //import environment variables
 dotenv.config()
@@ -18,11 +23,28 @@ app.use(cors({
 //middleware so we can parse json request
 app.use(express.json())
 
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  "/uploads",
+  express.static(path.join(import.meta.dirname, "../uploads")),
+);
+
 //middleware to store pdfs and qr codes in public
 app.use(express.static("src/public"));
 
 //registering all routes
 app.use("/api/v1", routes)
+
+// Error Handler
+app.use(errorHandler);
+
+// Used to handle (404) NOT FOUND error.
+app.use((req, res) => {
+  res.status(404).json({
+    status: "failed",
+    message: "Route not found",
+  });
+});
 
 
 //test route
