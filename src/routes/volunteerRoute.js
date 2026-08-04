@@ -26,7 +26,6 @@ volunteerRouter.post(
 volunteerRouter.put(
   "/volunteer/update",
   protect,
-
   authorize("volunteer"),
   uploadProfileFiles,
   validateUpdateVolunteer,
