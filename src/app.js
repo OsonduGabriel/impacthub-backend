@@ -38,6 +38,12 @@ app.use("/api/v1", routes)
 // Error Handler
 app.use(errorHandler);
 
+//test route
+app.get("/api/v1", (req, res) => {
+  res.status(200).json({success: true, message: "Welcome to ImpactHub API V1", documentation: "https://documenter.getpostman.com/view/54550547/2sBY4TqyCT"})
+})
+
+
 // Used to handle (404) NOT FOUND error.
 app.use((req, res) => {
   res.status(404).json({
@@ -46,11 +52,6 @@ app.use((req, res) => {
   });
 });
 
-
-//test route
-app.get("/api/v1", (req, res) => {
-  res.status(200).json({success: true, message: "Welcome to ImpactHub API V1", documentation: "https://documenter.getpostman.com/view/54550547/2sBY4TqyCT"})
-})
 
 
 const PORT = process.env.PORT || 5000;
