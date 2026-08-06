@@ -1,4 +1,4 @@
-import { Application, Opportunity, NGO } from '../model/associations.js';
+import { Application, Opportunity, NGO, Volunteer } from '../model/associations.js';
 
 export const getApplicationsForNGO = async (userId, opportunityId) => {
   const ngo = await NGO.findOne({ where: { userId } });
