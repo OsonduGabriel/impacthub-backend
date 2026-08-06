@@ -28,7 +28,8 @@ export const rejectContribution = async (req, res) => {
 };
 export const logContribution = async (req, res) => {
   try {
-    const { opportunityId, hoursLogged, evidence } = req.body;
+    const { opportunityId, hoursLogged } = req.body;
+    const evidence = req.files?.evidence?.[0]?.filename;
     const contribution = await contributionService.logContribution(req.user.id, opportunityId, hoursLogged, evidence);
     res.status(201).json({ success: true, contribution });
   } catch (error) {
