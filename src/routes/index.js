@@ -5,11 +5,12 @@ import userRoutes from "./userRoute.js";
 import volunteerRoutes from "./volunteerRoute.js";
 import ngoRoutes from "./ngoRoute.js";
 import opportunityRoutes from "./opportunityRoute.js";
-import applicationRoutes from "./applicationRoute.js"
+import applicationRoutes from "./applicationRoute.js";
 import certificateRoutes from "./certificateRoute.js";
+import certificationRoutes from "./certificationRoute.js";
 import impactProfileRoutes from "./impactProfileRoute.js";
 import notificationRoutes from "./notificationRoute.js";
-import reportRoutes from "./reportRoute.js"
+import reportRoutes from "./reportRoute.js";
 
 const router = express.Router();
 
@@ -23,9 +24,11 @@ router.use("/ngos", ngoRoutes);
 
 router.use("/opportunities", opportunityRoutes);
 
-router.use("/applications", applicationRoutes)
+router.use("/applications", applicationRoutes);
 
 router.use("/certificates", certificateRoutes);
+
+router.use("/", certificationRoutes);
 
 router.use("/impact-profile", impactProfileRoutes);
 
