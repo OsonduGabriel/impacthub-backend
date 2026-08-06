@@ -30,7 +30,10 @@ export const register = async (req, res, next) => {
       data: { user: user, token: token },
     });
   } catch (error) {
+<<<<<<< HEAD
     console.log(error.errors);
+=======
+>>>>>>> 042d9de972eb9739d5b0c6b99f5d6c76ebef4f31
     next(error);
   }
 };
@@ -125,11 +128,9 @@ export const resetPassword = async (req, res, next) => {
 };
 
 export const changePassword = async (req, res, next) => {
-  console.log(req.body);
   try {
     const { oldPassword, newPassword } = req.body;
     const user = await authService.getUserById(req.user.id);
-    console.log(`here is user ${user.fullname}`);
     if (!user) {
       return res.status(400).json({ status: "failed", message: error.message });
     }

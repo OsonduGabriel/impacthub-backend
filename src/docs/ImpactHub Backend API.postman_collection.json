@@ -2,7 +2,7 @@
   "info": {
     "_postman_id": "36ed1383-cb17-4c78-8ee8-0d12dfb28af2",
     "name": "ImpactHub Backend API",
-    "description": "Backend API documentation for the ImpactHub Volunteer & NGO Impact Tracker.\n\nBase URL:  \n[http://localhost:5000/api/v1](http://localhost:5000/api/v1)",
+    "description": "Backend API documentation for the ImpactHub Volunteer & NGO Impact Tracker.\n\nBase URL:  \n[https://impacthub-backend-production-2d9e.up.railway.app/api/v1](https://impacthub-backend-production-2d9e.up.railway.app/api/v1)",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "54550547",
     "_collection_link": "https://go.postman.co/collection/54550547-36ed1383-cb17-4c78-8ee8-0d12dfb28af2?source=collection_link"
@@ -559,7 +559,7 @@
                 "certificates"
               ]
             },
-            "description": "## Generate Certificate\n\nGenerates a volunteer certificate after verifying that the volunteer has a verified contribution for the selected opportunity. A QR code and PDF certificate are generated automatically, the certificate is saved, and a notification is sent to the volunteer.\n\n- **URL:** `/api/v1/certificates`\n    \n- **Method:** `POST`\n    \n- **Access:** Internal / Authorized Service\n    \n\n### Request Body\n\n``` json\n{\n  \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n  \"ngoId\": 1,\n  \"opportunityId\": 1,\n  \"verifiedHours\": 12\n}\n\n ```\n\n### Success Response (201 Created)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate generated successfully\",\n  \"data\": {\n    \"certificate\": {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    },\n    \"volunteerName\": \"Test Volunteer\",\n    \"ngoName\": \"red Future Foundation\",\n    \"opportunityTitle\": \"Community dump Cleanup Volunteer\"\n  }\n}\n\n ```\n\n### Possible Error Responses\n\n**Volunteer not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer not found\"\n}\n\n ```\n\n**NGO not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"NGO not found\"\n}\n\n ```\n\n**Opportunity not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Opportunity not found\"\n}\n\n ```\n\n**Contribution not verified**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer contribution has not been verified.\"\n}\n\n ```\n\n**Certificate already exists**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate has already been generated.\"\n}\n\n ```\n\n### Notes\n\n- The volunteer must exist.\n    \n- The NGO must exist.\n    \n- The opportunity must exist.\n    \n- The volunteer must have a **verified** contribution for the specified opportunity.\n    \n- Only one certificate can be generated per volunteer per opportunity.\n    \n- A unique certificate ID is generated automatically.\n    \n- A QR code is generated for certificate verification.\n    \n- A PDF certificate is generated and stored.\n    \n- A notification is automatically created for the volunteer after successful certificate generation."
+            "description": "## Generate Certificate\n\nGenerates a volunteer certificate after verifying that the volunteer has a verified contribution for the selected opportunity. A QR code and PDF certificate are generated automatically, the certificate is saved, and a notification is sent to the volunteer.\n\n- **URL:** `/certificates`\n    \n- **Method:** `POST`\n    \n- **Access:** Internal / Authorized Service\n    \n\n### Request Body\n\n``` json\n{\n  \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n  \"ngoId\": 1,\n  \"opportunityId\": 1,\n  \"verifiedHours\": 12\n}\n\n ```\n\n### Success Response (201 Created)\n\n``` json\n{\n  \"success\": true,\n  \"message\": \"Certificate generated successfully\",\n  \"data\": {\n    \"certificate\": {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    },\n    \"volunteerName\": \"Test Volunteer\",\n    \"ngoName\": \"red Future Foundation\",\n    \"opportunityTitle\": \"Community dump Cleanup Volunteer\"\n  }\n}\n\n ```\n\n### Possible Error Responses\n\n**Volunteer not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer not found\"\n}\n\n ```\n\n**NGO not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"NGO not found\"\n}\n\n ```\n\n**Opportunity not found**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Opportunity not found\"\n}\n\n ```\n\n**Contribution not verified**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Volunteer contribution has not been verified.\"\n}\n\n ```\n\n**Certificate already exists**\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate has already been generated.\"\n}\n\n ```\n\n### Notes\n\n- The volunteer must exist.\n    \n- The NGO must exist.\n    \n- The opportunity must exist.\n    \n- The volunteer must have a **verified** contribution for the specified opportunity.\n    \n- Only one certificate can be generated per volunteer per opportunity.\n    \n- A unique certificate ID is generated automatically.\n    \n- A QR code is generated for certificate verification.\n    \n- A PDF certificate is generated and stored.\n    \n- A notification is automatically created for the volunteer after successful certificate generation."
           },
           "response": []
         },
@@ -577,7 +577,7 @@
                 "certificates"
               ]
             },
-            "description": "## Get All Certificates\n\nRetrieves all certificates that have been generated in the system.\n\n- **URL:** `/api/v1/certificates`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied. This can be protected later if required.)_\n    \n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- Returns an array of all certificates stored in the database.\n    \n- Each certificate contains:\n    \n    - Unique certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code file path\n        \n    - PDF certificate file path\n        \n    - Current certificate status\n        \n    - Issue date\n        \n    - Creation and last update timestamps\n        \n- If no certificates exist, the endpoint returns an empty array:\n    \n\n``` json\n{\n  \"success\": true,\n  \"data\": []\n}\n\n ```"
+            "description": "## Get All Certificates\n\nRetrieves all certificates that have been generated in the system.\n\n- **URL:** `/certificates`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied. This can be protected later if required.)_\n    \n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n      \"certificateId\": \"IH-2026-49QSS58C\",\n      \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n      \"ngoId\": 1,\n      \"opportunityId\": 1,\n      \"verifiedHours\": 12,\n      \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n      \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n      \"status\": \"GENERATED\",\n      \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n      \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n      \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n    }\n  ]\n}\n\n ```\n\n### Notes\n\n- Returns an array of all certificates stored in the database.\n    \n- Each certificate contains:\n    \n    - Unique certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code file path\n        \n    - PDF certificate file path\n        \n    - Current certificate status\n        \n    - Issue date\n        \n    - Creation and last update timestamps\n        \n- If no certificates exist, the endpoint returns an empty array:\n    \n\n``` json\n{\n  \"success\": true,\n  \"data\": []\n}\n\n ```"
           },
           "response": []
         },
@@ -596,7 +596,7 @@
                 "c24e9548-17f5-4668-a99a-58736aed479c"
               ]
             },
-            "description": "## Get Certificate by ID\n\nRetrieves the details of a single certificate using its database ID.\n\n- **URL:** `/api/v1/certificates/:id`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied.)_\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Example Request\n\n``` http\nGET /api/v1/certificates/c24e9548-17f5-4668-a99a-58736aed479c\n\n ```\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n    \"certificateId\": \"IH-2026-49QSS58C\",\n    \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n    \"ngoId\": 1,\n    \"opportunityId\": 1,\n    \"verifiedHours\": 12,\n    \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n    \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n    \"status\": \"GENERATED\",\n    \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n    \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n    \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n  }\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate not found\"\n}\n\n ```\n\n### Notes\n\n- Retrieves a single certificate using its database UUID.\n    \n- Returns all certificate details, including:\n    \n    - Certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code location\n        \n    - PDF certificate location\n        \n    - Certificate status\n        \n    - Issue date\n        \n    - Creation and update timestamps\n        \n- If the certificate does not exist, a **404 Not Found** response is returned."
+            "description": "## Get Certificate by ID\n\nRetrieves the details of a single certificate using its database ID.\n\n- **URL:** `/certificates/:id`\n    \n- **Method:** `GET`\n    \n- **Access:** Public _(Currently no authentication middleware is applied.)_\n    \n\n### URL Parameters\n\n| Parameter | Type | Description |\n| --- | --- | --- |\n| `id` | UUID | Database ID of the certificate |\n\n### Example Request\n\n``` http\nGET /api/v1/certificates/c24e9548-17f5-4668-a99a-58736aed479c\n\n ```\n\n### Success Response (200 OK)\n\n``` json\n{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"c24e9548-17f5-4668-a99a-58736aed479c\",\n    \"certificateId\": \"IH-2026-49QSS58C\",\n    \"volunteerId\": \"dda326eb-c5c1-48cb-a341-564675cc032d\",\n    \"ngoId\": 1,\n    \"opportunityId\": 1,\n    \"verifiedHours\": 12,\n    \"qrCode\": \"src/public/qr/IH-2026-49QSS58C.png\",\n    \"pdfUrl\": \"src/public/certificates/IH-2026-49QSS58C.pdf\",\n    \"status\": \"GENERATED\",\n    \"issuedAt\": \"2026-08-02T16:28:29.726Z\",\n    \"createdAt\": \"2026-08-02T16:28:29.728Z\",\n    \"updatedAt\": \"2026-08-02T16:28:29.728Z\"\n  }\n}\n\n ```\n\n### Error Response (404 Not Found)\n\n``` json\n{\n  \"success\": false,\n  \"message\": \"Certificate not found\"\n}\n\n ```\n\n### Notes\n\n- Retrieves a single certificate using its database UUID.\n    \n- Returns all certificate details, including:\n    \n    - Certificate ID\n        \n    - Volunteer ID\n        \n    - NGO ID\n        \n    - Opportunity ID\n        \n    - Verified volunteer hours\n        \n    - QR code location\n        \n    - PDF certificate location\n        \n    - Certificate status\n        \n    - Issue date\n        \n    - Creation and update timestamps\n        \n- If the certificate does not exist, a **404 Not Found** response is returned."
           },
           "response": []
         },
@@ -1146,12 +1146,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/opportunities",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities"
               ]
@@ -1171,12 +1169,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/opportunities/6",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities/6",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities",
                 "6"
@@ -1206,12 +1202,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/opportunities/6",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities/6",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities",
                 "6"
@@ -1232,12 +1226,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/opportunities/6/publish",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities/6/publish",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities",
                 "6",
@@ -1259,12 +1251,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/opportunities/6/close",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities/6/close",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities",
                 "6",
@@ -1286,12 +1276,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/opportunities/7",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities/7",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities",
                 "7"
@@ -1321,12 +1309,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/opportunities",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities"
               ]
@@ -1355,12 +1341,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/opportunities",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities"
               ]
@@ -1389,12 +1373,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/opportunities",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/opportunities",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "opportunities"
               ]
@@ -1428,12 +1410,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/applications",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications"
               ]
@@ -1453,12 +1433,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/applications",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications"
               ]
@@ -1478,12 +1456,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/applications/2/accept",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications/2/accept",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications",
                 "2",
@@ -1505,12 +1481,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/applications/2/reject",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications/2/reject",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications",
                 "2",
@@ -1541,12 +1515,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/applications",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications"
               ]
@@ -1566,12 +1538,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/applications/3/withdraw",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/applications/3/withdraw",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "applications",
                 "3",
@@ -1607,12 +1577,10 @@
               }
             },
             "url": {
-              "raw": "http://localhost:5000/contributions",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/contributions",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "contributions"
               ]
@@ -1632,12 +1600,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/contributions",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/contributions",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "contributions"
               ]
@@ -1657,12 +1623,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/contributions/4/verify",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/contributions/4/verify",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "contributions",
                 "4",
@@ -1684,12 +1648,10 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:5000/contributions/4/reject",
-              "protocol": "http",
+              "raw": "{{baseUrl}}/contributions/4/reject",
               "host": [
-                "localhost"
+                "{{baseUrl}}"
               ],
-              "port": "5000",
               "path": [
                 "contributions",
                 "4",

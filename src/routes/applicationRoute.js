@@ -39,4 +39,5 @@ router.patch(
   authorize("volunteer"),
   applicationController.withdrawApplication,
 );
+
 export default router;

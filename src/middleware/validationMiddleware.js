@@ -192,9 +192,9 @@ export const validateUpdateVolunteer = [
     .withMessage("Please provide a valid url"),
   body("skills")
     .optional()
-    .trim()
     .isArray()
-    .withMessage("Please provide your skills"),
+    .trim()
+    .withMessage("Please provide valid Skills"),
   body("avatarUrl")
     .optional()
     .isURL()

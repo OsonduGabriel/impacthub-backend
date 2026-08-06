@@ -12,7 +12,6 @@ export const protect = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
-
     if (!token) {
       return res.status(401).json({
         status: "failed",
@@ -28,9 +27,7 @@ export const protect = async (req, res, next) => {
           message: "Error, Invalid Token please Login again",
         });
       }
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // decode to get user details from token.
       const user = await User.findByPk(decoded.id);
 
       if (!user) {
@@ -71,7 +68,6 @@ export const closeProtect = async (req, res, next) => {
     ) {
       token = req.headers.authorization.split(" ")[1];
     }
-
     if (!token) {
       return res.status(401).json({
         status: "failed",
@@ -80,15 +76,12 @@ export const closeProtect = async (req, res, next) => {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // decode to get user details from token.
       const currentTime = Math.floor(Date.now() / 1000);
       const ttl = decoded.exp - currentTime;
-
       if (ttl > 0) {
         await redisClient.setEx(`blackList_${token}`, ttl, "revoked");
       }
-
       const user = await User.findByPk(decoded.id);
 
       if (!user) {
@@ -127,7 +120,6 @@ export const authorize = (...roles) => {
         message: `Error, role ${req.user.role} is not authorized to access this route`,
       });
     }
-
     next();
   };
 };

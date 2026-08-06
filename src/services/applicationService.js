@@ -17,6 +17,20 @@ export const getApplicationsForNGO = async (userId, opportunityId) => {
   });
 };
 
+// ADDED THIS TO GET ALL VOLUNTEER APPLICATIONS
+export const getAllVolunteerApplications = async (userId) => {
+  const volunteer = await Volunteer.findOne({ where: { userId } });
+  if (!volunteer) throw new Error("Volunteer profile not found");
+
+  const applications = await Application.findAll({
+    where: { volunteerId: volunteer.id },
+  });
+  if (!applications) {
+    throw new Error("Applications not found");
+  }
+  return applications;
+};
+
 const getOwnedApplication = async (userId, applicationId) => {
   const ngo = await NGO.findOne({ where: { userId } });
   if (!ngo) throw new Error("NGO profile not found");
