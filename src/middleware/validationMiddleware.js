@@ -194,8 +194,7 @@ export const validateUpdateVolunteer = [
     .optional()
     .trim()
     .isArray()
-    .isLength({ min: 11, max: 20 })
-    .withMessage("Please provide a valid phone number"),
+    .withMessage("Please provide your skills"),
   body("avatarUrl")
     .optional()
     .isURL()
