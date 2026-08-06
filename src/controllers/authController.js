@@ -10,7 +10,7 @@ const authService = new AuthService();
 //
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRATION,
+    expiresIn: process.env.JWT_EXPIRES_IN,
   });
 };
 const generateOTP = (length = 6) => {
@@ -30,10 +30,7 @@ export const register = async (req, res, next) => {
       data: { user: user, token: token },
     });
   } catch (error) {
-<<<<<<< HEAD
     console.log(error.errors);
-=======
->>>>>>> 042d9de972eb9739d5b0c6b99f5d6c76ebef4f31
     next(error);
   }
 };
