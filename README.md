@@ -58,6 +58,7 @@ The backend is a RESTful JSON API secured with **JWT (JSON Web Token)** authenti
 
 # Project Structure
 
+```
 ├── src/
 │ │ ├── controllers/ # Request handlers
 │ │ ├── models/ # Database models (User, NGO, Opportunity, etc.)
@@ -79,6 +80,7 @@ The backend is a RESTful JSON API secured with **JWT (JSON Web Token)** authenti
 ├── README.md
 ├── package-lock.json
 └── package.json
+```
 
 ## API Endpoints Reference
 
