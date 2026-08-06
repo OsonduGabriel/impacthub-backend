@@ -11,6 +11,7 @@ import certificationRoutes from "./certificationRoute.js";
 import impactProfileRoutes from "./impactProfileRoute.js";
 import notificationRoutes from "./notificationRoute.js";
 import reportRoutes from "./reportRoute.js";
+import contributionRoutes from "./contributionRoute.js";
 
 const router = express.Router();
 
@@ -35,5 +36,7 @@ router.use("/impact-profile", impactProfileRoutes);
 router.use("/notifications", notificationRoutes);
 
 router.use("/", reportRoutes);
+
+router.use("/contributions", contributionRoutes);
 
 export default router;

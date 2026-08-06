@@ -15,6 +15,9 @@ const storage = multer.diskStorage({
     if (file.fieldname === "document") {
       uploadPath += "documents/";
     }
+    if (file.fieldname === "evidence") {
+      uploadPath += "evidences/";
+    }
     cb(null, path.join(__dirname, uploadPath));
   },
   filename: function (req, file, cb) {
@@ -65,6 +68,7 @@ const fileUpload = multer({
 const uploadProfileFiles = fileUpload.fields([
   { name: "avatar", maxCount: 1 },
   { name: "document", maxCount: 1 },
+  { name: "evidence", maxCount: 1 },
 ]);
 
 export default uploadProfileFiles;
