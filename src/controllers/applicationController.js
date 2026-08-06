@@ -104,7 +104,6 @@ export const allVolunteerApplications = async (req, res) => {
   }
 };
 
-
 export const applyForOpportunity = async (req, res) => {
   try {
     const application = await applicationService.applyForOpportunity(
@@ -148,18 +147,6 @@ export const withdrawApplication = async (req, res) => {
       req.params.id,
     );
     res.json({ success: true, application });
-  } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
-  }
-};
-
-export const allVolunteerApplications = async (req, res) => {
-  console.log(req.user.id);
-  try {
-    const applications = await applicationService.getAllVolunteerApplications(
-      req.user.id,
-    );
-    res.status(200).json({ success: true, applications: applications });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

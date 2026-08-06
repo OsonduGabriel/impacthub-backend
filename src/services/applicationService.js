@@ -81,17 +81,3 @@ export const withdrawApplication = async (userId, applicationId) => {
   await application.save();
   return application;
 };
-
-// ADDED THIS TO GET ALL VOLUNTEER APPLICATIONS
-export const getAllVolunteerApplications = async (userId) => {
-  const volunteer = await Volunteer.findOne({ where: { userId } });
-  if (!volunteer) throw new Error("Volunteer profile not found");
-
-  const applications = await Application.findAll({
-    where: { volunteerId: volunteer.id },
-  });
-  if (!applications) {
-    throw new Error("Applications not found");
-  }
-  return applications;
-};
