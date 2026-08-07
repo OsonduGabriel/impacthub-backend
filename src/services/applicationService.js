@@ -1,3 +1,5 @@
+import { Op } from "sequelize";
+
 import {
   Application,
   Opportunity,
@@ -19,15 +21,24 @@ export const getApplicationsForNGO = async (userId, opportunityId) => {
 
 // ADDED THIS TO GET ALL VOLUNTEER APPLICATIONS
 export const getAllVolunteerApplications = async (userId) => {
-  const volunteer = await Volunteer.findOne({ where: { userId } });
-  if (!volunteer) throw new Error("Volunteer profile not found");
+  const volunteer = await Volunteer.findOne({
+    where: { userId },
+  });
+
+  if (!volunteer) {
+    throw new Error("Volunteer profile not found");
+  }
 
   const applications = await Application.findAll({
-    where: { volunteerId: volunteer.id },
+    where: {
+      volunteerId: volunteer.id,
+    },
   });
-  if (!applications) {
-    throw new Error("Applications not found");
+
+  if (applications.length === 0) {
+    throw new Error("No applications found");
   }
+
   return applications;
 };
 
@@ -58,15 +69,19 @@ export const rejectApplication = async (userId, applicationId) => {
   await application.save();
   return application;
 };
+
+// CHANGED THIS ASPECT
 export const applyForOpportunity = async (userId, opportunityId) => {
+  const volunteer = await Volunteer.findOne({ where: { userId } });
+
   const existing = await Application.findOne({
-    where: { opportunityId, volunteerId: userId },
+    where: { opportunityId, volunteerId: volunteer.id },
   });
   if (existing)
     throw new Error("You have already applied for this opportunity");
   return Application.create({
     opportunityId,
-    volunteerId: userId,
+    volunteerId: volunteer.id,
     status: "submitted",
   });
 };
