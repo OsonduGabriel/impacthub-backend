@@ -30,14 +30,12 @@ export const register = async (req, res, next) => {
       data: { user: user, token: token },
     });
   } catch (error) {
-    console.log(error.errors);
     next(error);
   }
 };
 
 export const login = async (req, res) => {
   try {
-    console.log(req.body);
     const user = await authService.loginUser(req.body);
     const token = generateToken(user.id);
     return res
