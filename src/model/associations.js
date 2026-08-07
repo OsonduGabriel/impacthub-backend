@@ -86,4 +86,8 @@ export {
   Certificate,
   Notification,
   ImpactProfile,
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 7675ba5c4cc455730445ad924fa926e40060784e
