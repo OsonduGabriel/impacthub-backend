@@ -66,7 +66,7 @@ const startServer = async () => {
     console.log("PostgreSQL connected successfully.");
 
     //Sync models with the database
-    await sequelize.sync({ force: true });
+    await sequelize.sync({});
 
     app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on http://localhost:${PORT}`);
